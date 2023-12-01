@@ -3,11 +3,20 @@
 import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChatMessage } from "@/components/message";
 import { KeyReturn } from "@phosphor-icons/react";
+import { ChatScrollAnchor } from "@/components/chat-scroll-anchor";
+import { ChatList } from "@/components/chatlist";
+import { EmptyScreen } from "@/components/empty-screen";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    setInput,
+    isLoading,
+  } = useChat();
 
   return (
     <>
@@ -26,17 +35,20 @@ export default function Chat() {
       </header>
 
       <main className="bg-gray-100 dark:bg-gray-900">
-        <div className="min-h-screen flex flex-col p-4">
-          <div className="flex gap-2 flex-col p-2 py-16">
-            {messages.map((m) => (
-              <ChatMessage key={m.id} message={m} />
-            ))}
-          </div>
+        <div className="min-h-screen flex flex-col p-4 py-28">
+          {messages.length ? (
+            <>
+              <ChatList messages={messages} />
+              <ChatScrollAnchor trackVisibility={isLoading} />
+            </>
+          ) : (
+            <EmptyScreen setInput={setInput} />
+          )}
         </div>
 
         <div className="fixed bottom-0 w-full">
           <form
-            className="items-center space-x-2 w-full flex p-4"
+            className="items-center space-x-2 max-w-4xl flex mx-auto p-8"
             onSubmit={handleSubmit}
           >
             <Input
