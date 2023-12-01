@@ -1,21 +1,5 @@
-import OpenAI from "openai";
+import { openai } from "@/lib/openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
-import { env } from "@/env.mjs";
-
-const resource = env.AZURE_OPENAI_RESOURCE;
-const model = env.AZURE_OPENAI_MODEL;
-const apiKey = env.AZURE_OPENAI_API_KEY;
-
-if (!apiKey) {
-  throw new Error("AZURE_OPENAI_API_KEY is missing from the environment.");
-}
-
-const openai = new OpenAI({
-  apiKey,
-  baseURL: `https://${resource}.openai.azure.com/openai/deployments/${model}`,
-  defaultQuery: { "api-version": "2023-06-01-preview" },
-  defaultHeaders: { "api-key": apiKey },
-});
 
 // Set the runtime to edge for best performance
 export const runtime = "edge";
