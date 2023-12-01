@@ -4,7 +4,7 @@ import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageBubble } from "@/components/message";
-import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import { KeyReturn } from "@phosphor-icons/react";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
@@ -46,7 +46,7 @@ export default function Chat() {
               onChange={handleInputChange}
             />
             <Button type="submit">
-              <PaperAirplaneIcon className="w-6 h-6 mr-2" />
+              <KeyReturn className="w-6 h-6 mr-2" />
               Send
             </Button>
           </form>

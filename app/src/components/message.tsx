@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Robot, User } from "@phosphor-icons/react";
 import { Message } from "ai";
 
 interface MessageBubbleProps {
@@ -8,9 +9,8 @@ interface MessageBubbleProps {
 const BotMessage = ({ message }: MessageBubbleProps) => {
   return (
     <div className="flex items-end space-x-2">
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
+      <Avatar className="bg-primary text-primary-foreground items-center justify-center">
+        <Robot className="w-6 h-6" />
       </Avatar>
       <div className="p-3 rounded-lg bg-gray-200 dark:bg-gray-800">
         <p className="text-sm text-gray-900 dark:text-gray-100">
@@ -28,9 +28,8 @@ const UserMessage = ({ message }: MessageBubbleProps) => {
         <div className="p-3 rounded-lg bg-blue-500 text-white">
           <p className="text-sm">{message.content}</p>
         </div>
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+        <Avatar className="bg-blue-500 text-white items-center justify-center">
+          <User className="w-6 h-6" />
         </Avatar>
       </div>
     </div>
