@@ -3,7 +3,7 @@
 import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MessageBubble } from "@/components/message";
+import { ChatMessage } from "@/components/message";
 import { KeyReturn } from "@phosphor-icons/react";
 
 export default function Chat() {
@@ -29,7 +29,7 @@ export default function Chat() {
         <div className="min-h-screen flex flex-col p-4">
           <div className="flex gap-2 flex-col p-2 py-16">
             {messages.map((m) => (
-              <MessageBubble key={m.id} message={m} />
+              <ChatMessage key={m.id} message={m} />
             ))}
           </div>
         </div>
