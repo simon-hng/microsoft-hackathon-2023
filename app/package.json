@@ -23,6 +23,7 @@
     "@vercel/kv": "^1.0.0",
     "ai": "^2.2.27",
     "class-variance-authority": "^0.7.0",
+    "cloudmailin": "^0.0.3",
     "clsx": "^2.0.0",
     "focus-trap-react": "^10.2.3",
     "geist": "^1.2.0",
