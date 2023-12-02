@@ -64,9 +64,9 @@ export async function POST(request: NextRequest) {
     const vectorStore = await QdrantVectorStore.fromExistingCollection(
         embeddingsModel,
         {
-            url: process.env.QDRANT_URL,
-            apiKey: process.env.QDRANT_TOKEN,
-            collectionName: process.env.QDRANT_COLLECTION_NAME,
+            url: env.QDRANT_URL,
+            apiKey: env.QDRANT_TOKEN,
+            collectionName: env.QDRANT_COLLECTION_NAME,
         }
     );
 
