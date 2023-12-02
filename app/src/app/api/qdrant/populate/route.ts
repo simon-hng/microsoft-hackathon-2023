@@ -1,4 +1,4 @@
-// a nextjs route for creating a qdrant test-collection and populate it with hardcoded data
+// a Next.js route for creating a qdrant test-collection and populate it with hardcoded data
 import {NextRequest, NextResponse} from "next/server";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { QdrantClient } from "@qdrant/js-client-rest";

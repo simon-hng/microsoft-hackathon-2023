@@ -1,22 +1,22 @@
-import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import {QdrantVectorStore} from "langchain/vectorstores/qdrant";
+import {OpenAIEmbeddings} from "langchain/embeddings/openai";
 
 const embeddings = new OpenAIEmbeddings({
     azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
     azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION,
-    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
-    azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME,
+    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_RESOURCE,
+    azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_EMBEDDINGS_MODEL,
 });
 
-async function handleSearch(text: string) {
+export async function handleQdrantSearch(text: string, limit: number = 2) {
     const vectorStore = await QdrantVectorStore.fromExistingCollection(
-        new OpenAIEmbeddings(),
+        embeddings,
         {
             url: process.env.QDRANT_URL,
-            collectionName: "test-collection",
+            apiKey: process.env.QDRANT_TOKEN,
+            collectionName: process.env.QDRANT_COLLECTION_NAME,
         }
     );
-
-    const response = await vectorStore.similaritySearch("hello", 1);
-    console.log(response);
+    return await vectorStore.similaritySearch(text, limit);
 }
+
