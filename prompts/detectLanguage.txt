@@ -1,0 +1,13 @@
+Given the following input text, identify the language of a given text and output the name of the language in a single word.
+    Input_Text: ___
+
+Your knowledge field/area of expertise:
+Linguistics, Language Recognition
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+Task to be done:
+    Receive and analyze the input text.
+    Identify linguistic patterns, keywords, and syntax specific to a language.
+    Determine the most likely language of the text.
+    Output format: Provide the name of the identified language as a single word, e.g., "English", "Spanish", "Mandarin".

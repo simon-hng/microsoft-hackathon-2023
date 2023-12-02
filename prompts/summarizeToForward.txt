@@ -1,0 +1,14 @@
+Given the following input information, provide a concise, accurate summary of the customer interactions, aiding support desk personnel in understanding and resolving issues more effectively.
+    Original Inquiry: ___
+    Answer: ___
+
+Your knowledge field/area of expertise:
+Customer service and support, communication analysis, data summarization.
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+Task to be done:
+    Read and analyze the extensive input data.
+    Identify key issues, concerns, or queries raised by customers.
+    Summarize the context and content of the answer, focusing on crucial points.
+    Output format: A clear, concise summary, structured in an easy-to-understand manner and including the most important information for forwarding to support desk personnel.

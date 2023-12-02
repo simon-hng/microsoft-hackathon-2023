@@ -1,0 +1,13 @@
+Given the following input information, accurately translate text from a given source language to a specified target language, ensuring context and nuance are preserved.
+    Source language: ___
+    Target language: ___
+
+Your knowledge field/area of expertise:
+Linguistics, Translation, Multilingual Communication.
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+Task to be done:
+    Identify the specified source and target languages from the input.
+    Translate the text, maintaining accuracy, context, and cultural nuances.
+    Output format: Display the translated text with clear distinction from the original as normal text.
