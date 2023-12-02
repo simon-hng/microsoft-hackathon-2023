@@ -50,12 +50,12 @@ export default function KpiCards() {
           <Flex
             justifyContent="start"
             alignItems="baseline"
-            className="truncate space-x-3"
+            className="space-x-3 truncate"
           >
             <Metric>{item.metric}</Metric>
             <Text className="truncate">from {item.metricPrev}</Text>
           </Flex>
-          <Flex justifyContent="start" className="space-x-2 mt-4">
+          <Flex justifyContent="start" className="mt-4 space-x-2">
             <BadgeDelta deltaType={item.deltaType} />
             <Flex justifyContent="start" className="space-x-1 truncate">
               <Text

@@ -1,6 +1,6 @@
 "use client";
 
-import  { useChat } from "ai/react";
+import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { KeyReturn } from "@phosphor-icons/react";
@@ -21,7 +21,7 @@ export default function Chat() {
   return (
     <>
       <main className="bg-gray-100 dark:bg-gray-900">
-        <div className="min-h-screen flex flex-col p-4 py-28">
+        <div className="flex min-h-screen flex-col p-4 py-28">
           {messages.length ? (
             <>
               <ChatList messages={messages} isLoading={isLoading} />
@@ -34,7 +34,7 @@ export default function Chat() {
 
         <div className="fixed bottom-0 w-full">
           <form
-            className="items-center space-x-2 max-w-4xl flex mx-auto p-8"
+            className="mx-auto flex max-w-4xl items-center space-x-2 p-8"
             onSubmit={handleSubmit}
           >
             <Input
@@ -44,7 +44,7 @@ export default function Chat() {
               onChange={handleInputChange}
             />
             <Button type="submit">
-              <KeyReturn className="w-6 h-6 mr-2" />
+              <KeyReturn className="mr-2 h-6 w-6" />
               Send
             </Button>
           </form>

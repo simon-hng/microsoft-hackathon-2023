@@ -1,0 +1,210 @@
+{
+    "Leiterin": [
+        {
+            "Name": "Katinka Kleinheinz",
+            "Phone Number": "+49 (89) 289 - 25072",
+            "Email": "katinka.kleinheinz@tum.de",
+            "Location": ["Munich", "Heilbronn"]
+        }
+    ],
+    "Programm-Management/Studienfachberatung B.Sc. Management and Technology (München)": [
+        {
+            "Name": "Michaela Krieger",
+            "Phone Number": "+49 (89) 289 - 25071",
+            "Email": "michaela.krieger@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Ildiko Merza",
+            "Phone Number": "+49 (89) 289 - 25848",
+            "Email": "ildiko.merza@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Yulia Movsesova",
+            "Phone Number": "+49 (89) 289 - 25080",
+            "Email": "yulia.movsesova@tum.de",
+            "Location": "Munich"
+        }
+    ],
+    "Programm-Management/Studienfachberatung B.Sc. Management and Technology (Heilbronn)": [
+        {
+            "Name": "Anke Dautel",
+            "Phone Number": "+49 7131 26418612",
+            "Email": "anke.dautel@tum.de",
+            "Location": "Heilbronn"
+        },
+        {
+            "Name": "Martin Semjank",
+            "Phone Number": "+49713126418607",
+            "Email": "martin.semjank@tum.de",
+            "Location": "Heilbronn"
+        }
+    ],
+    "Programm-Management/Studienfachberatung M. Sc. Management and Technology": [
+        {
+            "Name": "Andreas Bauerfeld",
+            "Phone Number": "+49 (89) 289 - 28262",
+            "Email": "andreas.bauerfeld@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Katja Lesske",
+            "Phone Number": "+49 (89) 289 - 25317",
+            "Email": "katja.lesske@tum.de",
+            "Location": "Munich"
+        }
+    ],
+    "Programm-Management/Studienfachberatung M.Sc. Management (München)": [
+        {
+            "Name": "Amelie Haag",
+            "Phone Number": "+49 (89) 289 - 25164",
+            "Email": "amelie.haag@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Katja Leßke",
+            "Phone Number": "+49 (89) 289 - 25317",
+            "Email": "katja.lesske@tum.de",
+            "Location": "Munich"
+        }
+    ],
+    "Programm-Management/Studienfachberatung M.Sc. Management (Heilbronn)": [
+        {
+            "Name": "Anke Dautel",
+            "Phone Number": "+49 7131 26418612",
+            "Email": "anke.dautel@tum.de",
+            "Location": "Heilbronn"
+        },
+        {
+            "Name": "Christine Vogt-Bolch",
+            "Phone Number": "+49 7131 - 26418 614",
+            "Email": "christine.vogt-bolch@tum.de",
+            "Location": "Heilbronn"
+        }
+    ],
+    "Programm-Management/Studienfachberatung M.Sc. Consumer Science": [
+        {
+            "Name": "Katja Leßke",
+            "Phone Number": "+49 (89) 289 - 25317",
+            "Email": "katja.lesske@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Alina Paulig",
+            "Phone Number": "+49 (89) 289 - 25078",
+            "Email": "alina.paulig@tum.de",
+            "Location": "Munich"
+        }
+    ],
+    "Programm-Management/Studienfachberatung M.Sc. Finance & Information Management": [
+        {
+            "Name": "Charlotte Bayer",
+            "Phone Number": "+49 (89) 289 - 25246",
+            "Email": "charlotte.bayer@tum.de",
+            "Location": "Munich"
+        }
+    ],
+    "Buddy Program": [
+        {
+            "Name": "Katja Leßke",
+            "Phone Number": "+49 (89) 289 - 25317",
+            "Email": "katja.lesske@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        },
+        {
+            "Name": "Zuzana Zechovska",
+            "Phone Number": "+49 (89) 289 - 28185",
+            "Email": "zuzana.zechovska@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        }
+    ],
+    "Studierendenaustausch/Auslandsstudienberatung/Auslandsanerkennungen": [
+        {
+            "Name": "Josephina Buhr",
+            "Phone Number": "+49 (89) 289 - 25028",
+            "Email": "josephina.buhr@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        },
+        {
+            "Name": "Ute Helfers",
+            "Phone Number": "+49 (89) 289 - 25083",
+            "Email": "ute.helfers@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        },
+        {
+            "Name": "Anna-Lena Köttig",
+            "Phone Number": "+49 (89) 289 - 25847",
+            "Email": "anna-lena.koettig@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        },
+        {
+            "Name": "Gabriella Loparco",
+            "Phone Number": "+49 (89) 289 - 25036",
+            "Email": "gabriella.loparco@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        },
+        {
+            "Name": "Miriam Mahler",
+            "Phone Number": "+49 (89) 289 - 25079",
+            "Email": "miriam.mahler@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        }
+    ],
+    "Studierendenaustausch/Beratung für Austauschstudierende": [
+        {
+            "Name": "Ute Helfers",
+            "Phone Number": "+49 (89) 289 - 25083",
+            "Email": "ute.helfers@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        },
+        {
+            "Name": "Zuzana Zechovska",
+            "Phone Number": "+49 (89) 289 - 28185",
+            "Email": "zuzana.zechovska@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        }
+    ],
+    "Noten- und Prüfungsverwaltung der Studierenden (alle Studiengänge, München)Bitte wenden Sie sich mit Ihrem Anliegen an folgende E-Mail-Adresse: grademanagement@mgt.tum.de": [
+        {
+            "Name": "Michaela Gerhardt",
+            "Phone Number": "+49 (89) 289 - 25086",
+            "Email": "michaela.gerhardt@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Shan Huang",
+            "Phone Number": "+49 (89) 289 - 23884",
+            "Email": "shanhuang@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Inna Kravchenko",
+            "Phone Number": "+49 (89) 289 - 23449",
+            "Email": "inna.kravchenko@tum.de",
+            "Location": "Munich"
+        },
+        {
+            "Name": "Janine Rothenburger",
+            "Phone Number": "+49 (89) 289 - 25033",
+            "Email": "janine.rothenburger@tum.de",
+            "Location": "Munich"
+        }
+    ],
+    "PrüfungsausschussangelegenheitenBitte wenden Sie sich mit Ihrem Anliegen an folgende E-Mail-Adresse: examinationboard@mgt.tum.de": [
+        {
+            "Name": "Janine Rothenburger",
+            "Phone Number": "+49 (89) 289 - 25033",
+            "Email": "janine.rothenburger@tum.de",
+            "Location": ["Heilbronn", "Munich"]
+        }
+    ],
+    "Programm-Management/Studienfachberatung Master in Management and Digital Technology (Heilbronn)": [
+        {
+            "Name": "Sabrina Huber",
+            "Phone Number": "+49713126418606",
+            "Email": "sabrina.huber@tum.de",
+            "Location": "Heilbronn"
+        }
+    ]
+}

@@ -1,9 +1,8 @@
-import {NextRequest, NextResponse} from "next/server";
-import {IncomingMail} from "cloudmailin";
+import { NextRequest, NextResponse } from "next/server";
+import { IncomingMail } from "cloudmailin";
 import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
-import {handleQdrantSearch} from "./rag";
-import { emailReplyChain, forwardChain } from "@/lib/langchain/email-repy-chain";
-
+import { handleQdrantSearch } from "./rag";
+import { emailReplyChain } from "@/lib/langchain/email-repy-chain";
 
 const userName = process.env.CLOUDMAILIN_USERNAME || "cloudmailin";
 const apiKey = process.env.CLOUDMAILIN_APIKEY || "apikey";
@@ -58,13 +57,12 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleEmail(mail: IncomingMail) {
-
-    let parsedEmail = `Subject: ${mail.headers.subject}\n
+  let parsedEmail = `Subject: ${mail.headers.subject}\n
                              Content:${mail.plain}`;
 
-    console.log(`Received email from ${mail.headers.from}\n
+  console.log(`Received email from ${mail.headers.from}\n
                  Subject: ${mail.headers.subject}\n
                  Content:${mail.plain}`);
 
-    return parsedEmail;
+  return parsedEmail;
 }
