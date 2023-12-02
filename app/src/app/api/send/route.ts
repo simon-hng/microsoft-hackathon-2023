@@ -1,6 +1,7 @@
+import { env } from "@/env.mjs";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { env } from "@/env.mjs";
+import Waitlist from "@email/emails/waitlist";
 
 export async function POST() {
   const resend = new Resend(env.RESEND_API_KEY);
@@ -9,7 +10,10 @@ export async function POST() {
       from: "onboarding@resend.dev",
       to: "simon.huang@outlook.de",
       subject: "hello world",
-      html: "<p>Congrats on sending your <strong>first email</strong>!</p",
+      text: "hello world",
+      react: Waitlist({
+        name: "asd",
+      }),
     });
 
     return NextResponse.json(data);
