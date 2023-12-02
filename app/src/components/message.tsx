@@ -55,6 +55,7 @@ const MessageContent = ({ message }: MessageBubbleProps) => (
 );
 interface MessageBubbleProps {
   message: Message;
+  showSources?: boolean;
 }
 
 const SourceList = () => {
@@ -83,6 +84,7 @@ const SourceList = () => {
                 </p>
                 <Link
                   className="flex text-blue-500 underline"
+                  target="_blank"
                   href="http://tum.de"
                 >
                   Visit Source
@@ -96,7 +98,7 @@ const SourceList = () => {
   );
 };
 
-const BotMessage = ({ message }: MessageBubbleProps) => {
+const BotMessage = ({ message, showSources }: MessageBubbleProps) => {
   return (
     <div className="flex items-end space-x-2">
       <Avatar className="bg-primary text-primary-foreground items-center justify-center">
@@ -106,7 +108,7 @@ const BotMessage = ({ message }: MessageBubbleProps) => {
         <p className="text-gray-900 dark:text-gray-100">
           <MessageContent message={message} />
         </p>
-        <SourceList />
+        {showSources && <SourceList />}
       </div>
     </div>
   );
@@ -129,13 +131,17 @@ const UserMessage = ({ message }: MessageBubbleProps) => {
   );
 };
 
-export const ChatMessage = ({ message }: MessageBubbleProps) => {
+export const ChatMessage = ({ message, showSources }: MessageBubbleProps) => {
   return (
     <>
       {message.role === "user" ? (
         <UserMessage key={message.id} message={message} />
       ) : (
-        <BotMessage key={message.id} message={message} />
+        <BotMessage
+          key={message.id}
+          message={message}
+          showSources={showSources}
+        />
       )}
     </>
   );

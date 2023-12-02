@@ -24,7 +24,7 @@ export default function Chat() {
         <div className="min-h-screen flex flex-col p-4 py-28">
           {messages.length ? (
             <>
-              <ChatList messages={messages} />
+              <ChatList messages={messages} isLoading={isLoading} />
               <ChatScrollAnchor trackVisibility={isLoading} />
             </>
           ) : (
