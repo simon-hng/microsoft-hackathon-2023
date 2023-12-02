@@ -8,10 +8,10 @@ categories = ['Module Level:', 'Language:', 'Duration:',
               'Repeat Examination:', '(Recommended) Prerequisites:', 'Content:', 'Intended Learning Outcomes:', 
               'Teaching and Learning Methods:', 'Media:', 'Reading List:', 'Responsible for Module:', 
               'Courses (Type of course, Weekly hours per semester), Instructor:']
-pdf_path = pdf_path = Path("/Users/pauldelseith/Documents/microsoft-hackathon-2023/Data/Modulhandbuecher/16_167_2021_Modulehandbook_Master's Program Finance and Information Management__20221118.pdf")
+pdf_path = pdf_path = Path("/Users/pauldelseith/Documents/microsoft-hackathon-2023/Data/Modulhandbuecher/Modulehandbook_MBA Executive Master of Business Administration in Business & IT.pdf")
 loader = PDFMinerPDFasHTMLLoader(str(pdf_path))
 data = loader.load()[0]   # entire PDF is loaded as a single Document
-page_count = 68
+page_count = 32
 
 # extract the content of the page by getting the outer divs
 soup = BeautifulSoup(data.page_content,'html.parser')
