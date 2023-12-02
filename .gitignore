@@ -1,4 +1,5 @@
-Data
-.DS_Store
 .venv
 .vscode
+/Data
+.DS_Store
+.vercel

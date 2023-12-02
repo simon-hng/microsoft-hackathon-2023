@@ -1,21 +1,26 @@
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import { openai } from "@/lib/openai";
+import { NextRequest } from "next/server";
+import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
+import { retrievalChain } from "@/lib/langchain/simple-retrieval-chain";
 
-// IMPORTANT! Set the runtime to edge
 export const runtime = "edge";
 
-export async function POST(req: Request) {
-  // Extract the `messages` from the body of the request
-  const { messages } = await req.json();
+const formatMessage = (message: VercelChatMessage) => {
+  return `${message.role}: ${message.content}`;
+};
 
-  // Ask OpenAI for a streaming chat completion given the prompt
-  const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    stream: true,
-    messages,
+/*
+ * https://js.langchain.com/docs/guides/expression_language/cookbook#prompttemplate--llm--outputparser
+ */
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const messages = body.messages ?? [];
+  const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
+  const currentMessageContent = messages[messages.length - 1].content;
+
+  const stream = await retrievalChain.stream({
+    chat_history: formattedPreviousMessages.join("\n"),
+    input: currentMessageContent,
   });
-  // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response);
-  // Respond with the stream
+
   return new StreamingTextResponse(stream);
 }
