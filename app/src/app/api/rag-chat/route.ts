@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {env} from "@/env.mjs";
 
-import { PromptTemplate } from "langchain/prompts";
+import {PromptTemplate} from "langchain/prompts";
 import {
     RunnableSequence,
     RunnablePassthrough,
@@ -12,9 +12,11 @@ import {ChatOpenAI} from "langchain/chat_models/openai";
 import {OpenAIEmbeddings} from "langchain/embeddings/openai";
 import {QdrantVectorStore} from "langchain/vectorstores/qdrant";
 import {StringOutputParser} from "@langchain/core/output_parsers";
-import { formatDocumentsAsString } from "langchain/util/document";
+import {formatDocumentsAsString} from "langchain/util/document";
 
-import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
+import {Message as VercelChatMessage, StreamingTextResponse, Message} from "ai";
+import {ConversationalRetrievalQAChain} from "langchain/chains";
+import {BytesOutputParser} from "langchain/schema/output_parser";
 
 const formatMessage = (message: VercelChatMessage) => {
     return `${message.role}: ${message.content}`;
@@ -51,9 +53,9 @@ const answerTemplate = `Answer the question based only on the following context:
 Question: {question}
 `;
 const ANSWER_PROMPT = PromptTemplate.fromTemplate(answerTemplate);
-const formatChatHistory = (chatHistory: [string, string][]) => {
+const formatChatHistory = (chatHistory: Message[]) => {
     const formattedDialogueTurns = chatHistory.map(
-        (dialogueTurn) => `Human: ${dialogueTurn[0]}\nAssistant: ${dialogueTurn[1]}`
+        (message) => `${message.role}: ${message.content}`
     );
     return formattedDialogueTurns.join("\n");
 };
@@ -74,7 +76,7 @@ export async function POST(request: NextRequest) {
 
     type ConversationalRetrievalQAChainInput = {
         question: string;
-        chat_history: [string, string][];
+        chat_history: Message[];
     };
 
     const standaloneQuestionChain = RunnableSequence.from([
@@ -91,21 +93,20 @@ export async function POST(request: NextRequest) {
 
     const answerChain = RunnableSequence.from([
         {
-            context: retriever.pipe(
-                // @ts-ignore
-                formatDocumentsAsString
-            ),
+            context: retriever.pipe(formatDocumentsAsString),
             question: new RunnablePassthrough(),
         },
         ANSWER_PROMPT,
         gptModel,
     ]);
 
+    const outputParser = new BytesOutputParser();
     const conversationalRetrievalQAChain =
-        standaloneQuestionChain.pipe(answerChain);
+        standaloneQuestionChain.pipe(answerChain).pipe(outputParser);
 
     const body = await request.json();
     const messages = body.messages ?? [];
+
     const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
     const currentMessageContent = messages[messages.length - 1].content;
 
