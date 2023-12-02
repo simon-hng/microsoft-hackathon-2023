@@ -8,11 +8,14 @@ export const env = createEnv({
     AZURE_OPENAI_MODEL: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
   },
-  client: {},
+  client: {
+    NEXT_PUBLIC_JSONLINK_API_KEY: z.string().min(1),
+  },
   runtimeEnv: {
     AZURE_OPENAI_API_KEY: process.env.AZURE_OPENAI_API_KEY,
     AZURE_OPENAI_RESOURCE: process.env.AZURE_OPENAI_RESOURCE,
     AZURE_OPENAI_MODEL: process.env.AZURE_OPENAI_MODEL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    NEXT_PUBLIC_JSONLINK_API_KEY: process.env.NEXT_PUBLIC_JSONLINK_API_KEY,
   },
 });
