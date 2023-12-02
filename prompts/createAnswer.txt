@@ -1,0 +1,23 @@
+Given the following input information, create an answer email for a student inquiry.
+
+    Original Question from Student: {email}
+
+    Top 3 Match Answers from Vector Database:
+        Answer 1: {vdb_answer_1}
+        Answer 2: {vdb_answer_2}
+        Answer 3: {vdb_answer_3}
+
+    Filename of Email Attachments (if available): {filenames}
+
+Tasks:
+    Review the student's original question and the filename of any attachments to understand the context and specific needs.
+    Evaluate the top 3 match answers from the vector database to determine which one best addresses the student's inquiry.
+    Select the most appropriate answer from the vector database. Consider aspects like relevance, completeness, and accuracy in relation to the student's question.
+    Refactor the chosen answer to enhance its informativeness. Ensure that the refactored answer:
+        Directly addresses the student's question.
+        Is clear, concise, and specific.
+        Incorporates any relevant information from the email attachments, if applicable.
+        Is structured in a friendly and professional tone suitable for email communication with a student.
+
+Output:
+Compose the answer email using the refactored and selected answer, ensuring it is tailored to the student's specific inquiry and presented in a manner that is easy to understand.
