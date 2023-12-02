@@ -1,0 +1,9 @@
+Given the following input information, create an email for a student inquiry that can be sent to the student support team.
+
+    Original thread from chatbot with student: ___
+
+Tasks:
+    Review the original thread of the chat between the student and the chatbot to understand the context and specific needs of the student.
+    Provide a concise, accurate summary of the customer interactions, aiding support desk personnel in understanding and resolving issues more effectively.
+
+Output format: A clear, concise summary, structured in an easy-to-understand manner and including the most important information for forwarding to support desk personnel.
