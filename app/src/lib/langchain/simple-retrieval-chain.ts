@@ -1,5 +1,5 @@
 import { PromptTemplate } from "langchain/prompts";
-import { openai } from "../models/openai";
+import { gptModel } from "../models/openai";
 import { BytesOutputParser } from "langchain/schema/output_parser";
 
 const TEMPLATE = `You are a helpful support bot that helps students at TUM
@@ -15,7 +15,7 @@ const prompt = PromptTemplate.fromTemplate(TEMPLATE);
  * See a full list of supported models at:
  * https://js.langchain.com/docs/modules/model_io/models/
  */
-const model = openai;
+const model = gptModel;
 /**
  * Chat models stream message chunks rather than bytes, so this
  * output parser handles serialization and encoding.
