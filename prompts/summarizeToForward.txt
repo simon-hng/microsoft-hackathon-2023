@@ -1,6 +1,6 @@
 Given the following input information, provide a concise, accurate summary of the customer interactions, aiding support desk personnel in understanding and resolving issues more effectively.
-    Original Inquiry: ___
-    Answer: ___
+    Original Inquiry: {email}
+    Answer: {answer}
 
 Your knowledge field/area of expertise:
 Customer service and support, communication analysis, data summarization.

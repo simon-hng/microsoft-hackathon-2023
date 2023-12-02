@@ -1,13 +1,13 @@
 Given the following input information, create an answer email for a student inquiry.
 
-    Original Question from Student: ___
+    Original Question from Student: {email}
 
     Top 3 Match Answers from Vector Database:
-        Answer 1: ___
-        Answer 2: ___
-        Answer 3: ___
+        Answer 1: {vdb_answer_1}
+        Answer 2: {vdb_answer_2}
+        Answer 3: {vdb_answer_3}
 
-    Filename of Email Attachments (if available): ___
+    Filename of Email Attachments (if available): {filenames}
 
 Tasks:
     Review the student's original question and the filename of any attachments to understand the context and specific needs.

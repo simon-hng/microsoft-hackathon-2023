@@ -1,6 +1,6 @@
 Given the following input information, create an email for a student inquiry that can be sent to the student support team.
 
-    Original thread from chatbot with student: ___
+    Original thread from chatbot with student: {chatbot_thread}
 
 Tasks:
     Review the original thread of the chat between the student and the chatbot to understand the context and specific needs of the student.

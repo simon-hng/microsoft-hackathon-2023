@@ -1,6 +1,6 @@
 Given the following input information, accurately translate text from a given source language to a specified target language, ensuring context and nuance are preserved.
-    Source language: ___
-    Target language: ___
+    Source language: {source_language}
+    Target language: {target_language}
 
 Your knowledge field/area of expertise:
 Linguistics, Translation, Multilingual Communication.

@@ -1,0 +1,20 @@
+Given the following input information, evaluate whether the student is inquiring about information on a module or something else.
+    Input: {email}
+
+Your knowledge field/area of expertise:
+Education administration, customer support, email communication analysis, decision-making protocols.
+
+Modules are comprised of a module number and a module title.
+Examples include:
+[
+    
+]
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+Task to be done:
+    Analyze the content and context you receive.
+    Determine the nature and complexity of the inquiry.
+    Decide if inquiry is about finding out more about a module.
+    If the inquiry is about finding more information on a module, please output {module_information_needed, module number}
+    If the inquiry is not about finding more information on a module, please output {false}.

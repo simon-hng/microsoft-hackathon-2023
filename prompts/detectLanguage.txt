@@ -1,5 +1,5 @@
 Given the following input text, identify the language of a given text and output the name of the language in a single word.
-    Input_Text: ___
+    Input_Text: {email.body}
 
 Your knowledge field/area of expertise:
 Linguistics, Language Recognition
