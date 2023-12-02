@@ -68,7 +68,7 @@ export const LinkPreview = ({ href }: LinkPreviewProps) => {
         </Link>
       </HoverCardTrigger>
       {source && (
-        <HoverCardContent className="w-80 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade bg-white p-5 data-[state=open]:transition-all z-10">
+        <HoverCardContent className="z-10 w-80 bg-white p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all">
           <div className="flex justify-between space-x-4">
             <div className="space-y-2">
               {source.images.length > 0 && (

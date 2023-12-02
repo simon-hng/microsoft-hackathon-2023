@@ -9,9 +9,9 @@ export const SourceList = () => {
   ];
 
   return (
-    <div className="flex items-center gap-2 text-gray-700 dark:text-dark-300 text-sm mt-3">
-      <BookOpen className="w-6 h-6" />
-      <div className="space-x-2 flex">
+    <div className="dark:text-dark-300 mt-3 flex items-center gap-2 text-sm text-gray-700">
+      <BookOpen className="h-6 w-6" />
+      <div className="flex space-x-2">
         <p>Sources:</p>
         {sources.map((href, index) => (
           <LinkPreview href={href} key={index} />

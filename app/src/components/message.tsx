@@ -30,7 +30,7 @@ export const ChatMessage = ({ message, showSources }: ChatMessageProps) => {
 
 const MessageContent = ({ message }: ChatMessageProps) => (
   <MemoizedReactMarkdown
-    className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
+    className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
     remarkPlugins={[remarkGfm, remarkMath]}
     components={{
       p({ children }) {
@@ -39,7 +39,7 @@ const MessageContent = ({ message }: ChatMessageProps) => (
       code({ node, inline, className, children, ...props }) {
         if (children.length) {
           if (children[0] == "▍") {
-            return <span className="mt-1 cursor-default animate-pulse">▍</span>;
+            return <span className="mt-1 animate-pulse cursor-default">▍</span>;
           }
 
           children[0] = (children[0] as string).replace("`▍`", "▍");
@@ -73,10 +73,10 @@ const MessageContent = ({ message }: ChatMessageProps) => (
 const BotMessage = ({ message, showSources }: ChatMessageProps) => {
   return (
     <div className="flex items-end space-x-2">
-      <Avatar className="bg-primary text-primary-foreground items-center justify-center">
-        <Robot className="w-6 h-6" />
+      <Avatar className="items-center justify-center bg-primary text-primary-foreground">
+        <Robot className="h-6 w-6" />
       </Avatar>
-      <div className="p-3 rounded-lg bg-gray-200 dark:bg-gray-800">
+      <div className="rounded-lg bg-gray-200 p-3 dark:bg-gray-800">
         <p className="text-gray-900 dark:text-gray-100">
           <MessageContent message={message} />
         </p>
@@ -88,15 +88,15 @@ const BotMessage = ({ message, showSources }: ChatMessageProps) => {
 
 const UserMessage = ({ message }: ChatMessageProps) => {
   return (
-    <div className="flex-1 overflow-y-auto space-y-4">
+    <div className="flex-1 space-y-4 overflow-y-auto">
       <div className="flex items-end justify-end space-x-2">
-        <div className="p-3 rounded-lg bg-blue-500 text-white">
+        <div className="rounded-lg bg-blue-500 p-3 text-white">
           <p className="text-sm">
             <MessageContent message={message} />
           </p>
         </div>
-        <Avatar className="bg-blue-500 text-white items-center justify-center">
-          <User className="w-6 h-6" />
+        <Avatar className="items-center justify-center bg-blue-500 text-white">
+          <User className="h-6 w-6" />
         </Avatar>
       </div>
     </div>

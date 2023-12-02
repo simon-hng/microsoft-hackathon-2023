@@ -12,7 +12,7 @@ export function ChatList({ messages, isLoading }: ChatList) {
   }
 
   return (
-    <div className="relative mx-auto max-w-4xl px-4 flex gap-3 flex-col w-full">
+    <div className="relative mx-auto flex w-full max-w-4xl flex-col gap-3 px-4">
       {messages.map((message, index) => (
         <ChatMessage key={index} message={message} showSources={!isLoading} />
       ))}

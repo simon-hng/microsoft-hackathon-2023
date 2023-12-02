@@ -1,6 +1,6 @@
 export const Header = () => {
   return (
-    <header className="fixed w-full bg-primary text-primary-foreground px-8 py-4 z-10">
+    <header className="fixed z-10 w-full bg-primary px-8 py-4 text-primary-foreground">
       <svg
         width="80"
         height="42"
