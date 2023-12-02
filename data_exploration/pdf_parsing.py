@@ -3,8 +3,9 @@ import re
 import json
 pdf_path = "/Users/pauldelseith/Documents/microsoft-hackathon-2023/Data/Modulhandbuecher/16_167_2021_Modulehandbook_Master's Program Finance and Information Management__20221118.pdf"
 text = pdfminer.high_level.extract_text(pdf_path)
+pages = pdfminer.high_level.extract_pages(pdf_path)
+page_nr = sum(1 for _ in pages)
 pdf_text_split = text.split("Module Description")
-len(pdf_text_split)
 pattern = r'\n\n(.*?)\n\n'
 pdf_text_dict = {}
 for text_chunk in pdf_text_split[1:-1]:
