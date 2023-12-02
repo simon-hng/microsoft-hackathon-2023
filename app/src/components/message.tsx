@@ -1,10 +1,16 @@
 import { Avatar } from "@/components/ui/avatar";
-import { Robot, User } from "@phosphor-icons/react";
+import { BookOpen, Robot, User } from "@phosphor-icons/react";
 import { Message } from "ai";
 import { MemoizedReactMarkdown } from "./markdown";
 import { CodeBlock } from "@/components/ui/codeblock";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+import Link from "next/link";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@radix-ui/react-hover-card";
 
 const MessageContent = ({ message }: MessageBubbleProps) => (
   <MemoizedReactMarkdown
@@ -51,6 +57,45 @@ interface MessageBubbleProps {
   message: Message;
 }
 
+const SourceList = () => {
+  return (
+    <div className="flex items-center gap-2 text-gray-700 dark:text-dark-300 text-sm mt-3">
+      <BookOpen className="w-6 h-6" />
+      <p>
+        Sources:{" "}
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Link href="" className="underline underline-offset-2">
+              TUM.de
+            </Link>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-80 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade bg-white p-5 data-[state=open]:transition-all">
+            <div className="flex justify-between space-x-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold">
+                  TUM. The Entrepreneurial - Technical University of Munich
+                </h4>
+                <p className="text-sm">
+                  is a leading university for natural sciences and engineering
+                  in Germany and the world. Learn about its innovation, talent,
+                  excellence and responsibility, and discover its news, research
+                  results and upcoming events.
+                </p>
+                <Link
+                  className="flex text-blue-500 underline"
+                  href="http://tum.de"
+                >
+                  Visit Source
+                </Link>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+      </p>
+    </div>
+  );
+};
+
 const BotMessage = ({ message }: MessageBubbleProps) => {
   return (
     <div className="flex items-end space-x-2">
@@ -58,9 +103,10 @@ const BotMessage = ({ message }: MessageBubbleProps) => {
         <Robot className="w-6 h-6" />
       </Avatar>
       <div className="p-3 rounded-lg bg-gray-200 dark:bg-gray-800">
-        <p className="text-sm text-gray-900 dark:text-gray-100">
+        <p className="text-gray-900 dark:text-gray-100">
           <MessageContent message={message} />
         </p>
+        <SourceList />
       </div>
     </div>
   );
