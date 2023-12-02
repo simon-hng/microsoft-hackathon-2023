@@ -1,0 +1,13 @@
+Given the following input information, strip away unnecessary information from the email and extract only the relevant details, making email management more efficient.
+    Input Email: {email}
+
+Your knowledge field/area of expertise:
+Email communication, Information extraction
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+Task to be done:
+    Identify the email's main subject and purpose.
+    Extract key points, dates, action items, and contact information.
+    Remove redundant phrases, greetings, and signatures.
+    Output format: Concise summary of the email's essential information.
