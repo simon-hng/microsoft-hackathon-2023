@@ -1,5 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {IncomingMail} from "cloudmailin";
+import {handleQdrantSearch} from "./rag"
 
 
 const userName = process.env.CLOUDMAILIN_USERNAME || "cloudmailin";
@@ -8,9 +9,28 @@ console.log(`Using ${userName} and ${apiKey}`);
 
 export async function POST(request: NextRequest) {
     try {
-        let mail: IncomingMail = await request.json();
-
+        // receiving incoming email from CloudMailin
+        const mail: IncomingMail = await request.json();
+        // parsing email into a string
         const parsedEmail = await handleEmail(mail);
+        const vectorDBSearchResult = await handleQdrantSearch(parsedEmail, 3);
+
+
+        //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return NextResponse.json(
             {
