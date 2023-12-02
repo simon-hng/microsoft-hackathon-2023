@@ -6,6 +6,7 @@ import { CodeBlock } from "@/components/ui/codeblock";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import { SourceList } from "./source-list";
+import { LinkPreview } from "./link-preview";
 
 interface ChatMessageProps {
   message: Message;
@@ -35,6 +36,9 @@ const MessageContent = ({ message }: ChatMessageProps) => (
     components={{
       p({ children }) {
         return <p className="mb-2 last:mb-0">{children}</p>;
+      },
+      a({ href }) {
+        return <LinkPreview href={href ?? "#"} />;
       },
       code({ node, inline, className, children, ...props }) {
         if (children.length) {

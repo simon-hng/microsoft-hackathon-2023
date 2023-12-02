@@ -9,25 +9,12 @@ import {
 import { env } from "@/env.mjs";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-function extractDomain(url: string): string | null {
-  // Define a regular expression pattern to match the domain
-  const domainRegex = /^(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
-
-  // Use the regular expression to extract the domain
-  const match = url.match(domainRegex);
-
-  // Check if a match is found
-  if (match && match[1]) {
-    return match[1];
-  } else {
-    // Return null if no match is found
-    return null;
-  }
-}
+import { cn } from "@/lib/utils";
 
 interface LinkPreviewProps {
   href: string;
+  title: React.ReactNode;
+  className?: string;
 }
 
 interface LinkMetadata {
@@ -41,7 +28,7 @@ interface LinkMetadata {
   url: string;
 }
 
-export const LinkPreview = ({ href }: LinkPreviewProps) => {
+export const LinkPreview = ({ href, title, className }: LinkPreviewProps) => {
   const query = useQuery({
     queryKey: ["LinkPreview", href],
     queryFn: () =>
@@ -62,9 +49,9 @@ export const LinkPreview = ({ href }: LinkPreviewProps) => {
       <HoverCardTrigger asChild>
         <Link
           href={source?.url ?? href}
-          className="underline underline-offset-2"
+          className={cn("underline underline-offset-2", className)}
         >
-          {extractDomain(href) ?? source?.domain}
+          {source?.title ?? title}
         </Link>
       </HoverCardTrigger>
       {source && (

@@ -10,12 +10,18 @@ export const SourceList = () => {
 
   return (
     <div className="dark:text-dark-300 mt-3 flex items-center gap-2 text-sm text-gray-700">
-      <BookOpen className="h-6 w-6" />
-      <div className="flex space-x-2">
-        <p>Sources:</p>
-        {sources.map((href, index) => (
-          <LinkPreview href={href} key={index} />
-        ))}
+      <div className="flex flex-col gap-2 lg:flex-row">
+        <div className="flex items-center gap-2">
+          <BookOpen className="h-6 w-6" />
+          <p>Sources:</p>
+        </div>
+        <ul className="flex flex-col gap-1 lg:flex-row lg:items-center">
+          {sources.map((href, index) => (
+            <li>
+              <LinkPreview href={href} title={href} key={index} />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
