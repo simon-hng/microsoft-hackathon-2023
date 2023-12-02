@@ -1,5 +1,5 @@
 import { PromptTemplate } from "langchain/prompts";
-import { openai } from "../openai";
+import { openai } from "../models/openai";
 import { BytesOutputParser } from "langchain/schema/output_parser";
 
 const TEMPLATE = `You are a helpful support bot that helps students at TUM
