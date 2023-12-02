@@ -19,29 +19,29 @@ const colors = {
 
 const categories = [
   {
-    title: "Sales",
-    metric: "$ 12,699",
-    metricPrev: "$ 9,456",
-    delta: "34.3%",
-    deltaType: "moderateIncrease",
+    title: "Overall requests",
+    metric: "2,699",
+    metricPrev: "1.259",
+    delta: "134.3%",
+    deltaType: "increase",
   },
   {
-    title: "Profit",
-    metric: "$ 40,598",
-    metricPrev: "$ 45,564",
+    title: "Automated responses",
+    metric: "85.1%",
+    metricPrev: "81.2",
     delta: "10.9%",
-    deltaType: "moderateDecrease",
+    deltaType: "moderateIncrease",
   },
   {
-    title: "Customers",
-    metric: "1,072",
-    metricPrev: "856",
+    title: "Unique Students",
+    metric: "1,859",
+    metricPrev: "1,912",
     delta: "25.3%",
-    deltaType: "moderateIncrease",
+    deltaType: "moderateDecrease",
   },
 ];
 
-export default function KpiCard() {
+export default function KpiCards() {
   return (
     <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
       {categories.map((item) => (

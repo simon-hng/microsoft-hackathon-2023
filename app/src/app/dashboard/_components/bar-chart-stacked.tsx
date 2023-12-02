@@ -3,21 +3,23 @@ import { Card, Title, BarChart, Text } from "@tremor/react";
 const data = [
   {
     Month: "Jan 21",
-    Failed: 2890,
-    Completed: 1400,
-    "In Progress": 4938,
+    "Manual answer required": 29,
+    "Automatically answered": 108,
   },
   {
     Month: "Feb 21",
-    Failed: 1890,
-    Completed: 998,
-    "In Progress": 2938,
+    "Manual answer required": 2,
+    "Automatically answered": 120,
   },
   {
     Month: "Jan 22",
-    Failed: 3890,
-    Completed: 2980,
-    "In Progress": 2645,
+    "Manual answer required": 14,
+    "Automatically answered": 200,
+  },
+  {
+    Month: "Feb 22",
+    "Manual answer required": 15,
+    "Automatically answered": 192,
   },
 ];
 
@@ -27,14 +29,14 @@ const valueFormatter = (number: number) =>
 export default function BarChartStacked() {
   return (
     <Card>
-      <Title>Ticket Monitoring</Title>
-      <Text>Tickets by Status</Text>
+      <Title>Request Monitoring</Title>
+      <Text>Requests by status</Text>
       <BarChart
         className="mt-4 h-80"
         data={data}
         index="Month"
-        categories={["Completed", "In Progress", "Failed"]}
-        colors={["sky", "violet", "fuchsia"]}
+        categories={["Automatically answered", "Manual answer required"]}
+        colors={["emerald", "red"]}
         valueFormatter={valueFormatter}
         stack={true}
       />

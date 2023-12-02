@@ -11,7 +11,7 @@ import {
   TabPanels,
 } from "@tremor/react";
 import BarChartStacked from "./_components/bar-chart-stacked";
-import KpiCard from "./_components/kpi-card";
+import KpiCards from "./_components/kpi-card";
 
 export default function Dashboard() {
   return (
@@ -25,7 +25,7 @@ export default function Dashboard() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <KpiCard />
+            <KpiCards />
             <div className="mt-6">
               <BarChartStacked />
             </div>
