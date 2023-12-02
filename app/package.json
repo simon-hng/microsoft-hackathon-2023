@@ -10,6 +10,7 @@
     "dev:email": "email dev"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
     "@heroicons/react": "1.0.6",
     "@phosphor-icons/react": "^2.0.15",
     "@qdrant/js-client-rest": "^1.6.0",
