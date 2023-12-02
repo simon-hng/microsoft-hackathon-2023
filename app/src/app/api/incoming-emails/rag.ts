@@ -9,6 +9,7 @@ const embeddings = new OpenAIEmbeddings({
 });
 
 export async function handleQdrantSearch(text: string, limit: number = 2) {
+    console.log(`Searching for ${text}`);
     const vectorStore = await QdrantVectorStore.fromExistingCollection(
         embeddings,
         {
