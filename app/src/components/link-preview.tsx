@@ -7,9 +7,24 @@ import {
   HoverCardTrigger,
 } from "@radix-ui/react-hover-card";
 import { env } from "@/env.mjs";
-import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
+function extractDomain(url: string): string | null {
+  // Define a regular expression pattern to match the domain
+  const domainRegex = /^(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
+
+  // Use the regular expression to extract the domain
+  const match = url.match(domainRegex);
+
+  // Check if a match is found
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    // Return null if no match is found
+    return null;
+  }
+}
 
 interface LinkPreviewProps {
   href: string;
@@ -49,7 +64,7 @@ export const LinkPreview = ({ href }: LinkPreviewProps) => {
           href={source?.url ?? href}
           className="underline underline-offset-2"
         >
-          {source?.domain ?? href}
+          {extractDomain(href) ?? source?.domain}
         </Link>
       </HoverCardTrigger>
       {source && (
