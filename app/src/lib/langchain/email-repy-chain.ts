@@ -24,7 +24,23 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
 Output:
 Compose the answer email using the refactored and selected answer, ensuring it is tailored to the student's specific inquiry and presented in a manner that is easy to understand.`;
 
+const FORWARD_OR_NOT = `Given the following input information, evaluate answers to student email inquiries, deciding whether the answer can be directly sent to the student or if it needs to be forwarded to specific customer support personnel for further action.
+AnswerToEvaluate: {answer}
+
+Your knowledge field/area of expertise:
+Education administration, customer support, email communication analysis, decision-making protocols.
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+Task to be done:
+Analyze the content and context you receive.
+Determine the nature and complexity of the inquiry and answer.
+Decide if the answer to the inquiry is suitable and can be sent back directly or requires forwarding to customer support.
+Identify the appropriate customer support contact or department for inquiries requiring escalation.
+Output format: Always give me just a boolean value (true/false) for whether the answer can be sent back directly or needs to be forwarded to customer support. Answer with true if the message should be forwarded, with false if it should not be forwarded. I don't need any other information.`;
+
 const createAnswer = PromptTemplate.fromTemplate(CREATE_ANSWER);
+const createForwardDecision = PromptTemplate.fromTemplate(FORWARD_OR_NOT);
 /**
  * See a full list of supported models at:
  * https://js.langchain.com/docs/modules/model_io/models/
@@ -43,3 +59,5 @@ const outputParser = new BytesOutputParser();
  * const chain = RunnableSequence.from([prompt, model, outputParser]);
  */
 export const emailReplyChain = createAnswer.pipe(model).pipe(outputParser);
+export const forwardChain = createForwardDecision.pipe(model).pipe(outputParser);
+

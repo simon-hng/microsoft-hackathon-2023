@@ -2,7 +2,7 @@ import {NextRequest, NextResponse} from "next/server";
 import {IncomingMail} from "cloudmailin";
 import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
 import {handleQdrantSearch} from "./rag";
-import { emailReplyChain } from "@/lib/langchain/email-repy-chain";
+import { emailReplyChain, forwardChain } from "@/lib/langchain/email-repy-chain";
 
 
 const userName = process.env.CLOUDMAILIN_USERNAME || "cloudmailin";
@@ -20,25 +20,32 @@ export async function POST(request: NextRequest) {
         //const vectorDBSearchResult = await handleQdrantSearch(parsedEmail, 3);
         const vectorDBSearchResult = await handleQdrantSearch(message, 3);
         console.log(vectorDBSearchResult)
-        const emailAnswer = await emailReplyChain.stream({
+        const emailAnswerEncoded = await emailReplyChain.invoke({
             email: message,
             vdb_answer_1: vectorDBSearchResult[0].metadata.answer,
             vdb_answer_2: vectorDBSearchResult[1].metadata.answer,
             vdb_answer_3: vectorDBSearchResult[2].metadata.answer,
         });
+        var emailAnswer = new TextDecoder().decode(emailAnswerEncoded)
         console.log(`Answer: ${emailAnswer}`);
-
+        const forwardDecisionEncoded = await forwardChain.invoke({
+            answer: emailAnswer,
+        });
+        const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded)
+        const forwardDecisionBool = forwardDecision == "true" ? true : false
+        console.log(`Forward Decision: ${forwardDecision}`);
 
         //
-        // return NextResponse.json(
-        //     {
-        //         email: message,
-        //         vectorDBSearchResult: [vectorDBSearchResult[0].metadata.answer, vectorDBSearchResult[1].metadata.answer, vectorDBSearchResult[2].metadata.answer],
-        //         answer: emailAnswer
-        //     },
-        //     {status: 201}
-        // );
-        return new StreamingTextResponse(emailAnswer);
+        return NextResponse.json(
+            {
+                email: message,
+                vectorDBSearchResult: [vectorDBSearchResult[0].metadata.answer, vectorDBSearchResult[1].metadata.answer, vectorDBSearchResult[2].metadata.answer],
+                answer: emailAnswer,
+                forwardDecision: forwardDecisionBool,
+            },
+            {status: 201}
+        );
+        //return new StreamingTextResponse(emailAnswer);
     } catch (error) {
         return NextResponse.json(
             {
