@@ -7,7 +7,20 @@ Education administration, customer support, email communication analysis, decisi
 Modules are comprised of a module number and a module title.
 Examples include:
 [
-    
+    'WIHN0001: Mathematics in Natural and Economic Science 1',
+    'WIHN0002: Statistics for Business Administration',
+    'WIHN0021_E: Economics I - Microeconomics',
+    'WIHN0275_E: Management Science',
+    'WIHN0219_E: Investment and Financial Management', 
+    'WIHN0261: Empirical Research Methods', 
+    'EI10008: Machine Learning and Data Science',
+    'IN8005: Introduction into Computer Science (for non informatics studies)', 
+    'IN8027: Introduction to Informatics for Students of Management & Technology – Programming Lab Course', 
+    'MW2383: Design and Analysis of Digital Control Systems',
+    'MW2468: Logistics Engineering in Production Systems and Supply Chain Management',
+    'EI10009: Project Work in Electrical Engineering and Information Technology (EI)',
+    'MGTHN0091: Web Scraping with Python',
+    'MGTHN0060: Leadership in Family Enterprise',
 ]
 
 Approach this task step-by-step, take your time and do not skip steps:
@@ -16,5 +29,5 @@ Task to be done:
     Analyze the content and context you receive.
     Determine the nature and complexity of the inquiry.
     Decide if inquiry is about finding out more about a module.
-    If the inquiry is about finding more information on a module, please output {module_information_needed, module number}
+    If the inquiry is about finding more information on a module, please output {module_information_needed, module_number, module_title}
     If the inquiry is not about finding more information on a module, please output {false}.
