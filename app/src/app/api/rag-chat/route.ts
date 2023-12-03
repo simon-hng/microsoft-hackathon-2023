@@ -12,16 +12,14 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { formatDocumentsAsString } from "langchain/util/document";
 
 import {
   Message as VercelChatMessage,
   StreamingTextResponse,
   Message,
 } from "ai";
-import { ConversationalRetrievalQAChain } from "langchain/chains";
 import { BytesOutputParser } from "langchain/schema/output_parser";
-import { Document } from "langchain/dist/document";
+import { Document } from "langchain/document";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
@@ -53,7 +51,7 @@ const CONDENSE_QUESTION_PROMPT = PromptTemplate.fromTemplate(
 );
 
 const answerTemplate = `You are the direct representative of the TUM Help Desc for School of Management.
-The student is reaching out to you regarding their question. If you feel like you need more information (degree program, semester, etc.) to answer the question, please ask the student for it. If you are super helpful and direct (without unnecessary information) you will get a 1200€ raise next month. 
+The student is reaching out to you regarding their question. If you feel like you need more information (degree program, semester, etc.) to answer the question, please ask the student for it. If you are super helpful and direct (without unnecessary information) you will get a 1200€ raise next month.
 Answer the question based only on the following context:
 
 {context}
