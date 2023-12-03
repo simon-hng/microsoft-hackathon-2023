@@ -1,50 +1,60 @@
 import { NextRequest, NextResponse } from "next/server";
 import { IncomingMail } from "cloudmailin";
-import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
 import { handleQdrantSearch } from "./rag";
-import { emailReplyChain } from "@/lib/langchain/email-repy-chain";
+import { emailReplyChain, forwardChain } from "@/lib/langchain/email-repy-chain";
+import { env } from "@/env.mjs";
+import { Resend } from "resend";
+import Answer from "@email/emails/answer";
 
-const userName = process.env.CLOUDMAILIN_USERNAME || "cloudmailin";
-const apiKey = process.env.CLOUDMAILIN_APIKEY || "apikey";
-console.log(`Using ${userName} and ${apiKey}`);
+const resend = new Resend(env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
     try {
-        // receiving incoming email from CloudMailin
-        const {message} = await request.json();
-        console.log(message)
-        //const mail: IncomingMail = await request.json();
-        // parsing email into a string
-        //const parsedEmail = await handleEmail(mail);
-        //const vectorDBSearchResult = await handleQdrantSearch(parsedEmail, 3);
-        const vectorDBSearchResult = await handleQdrantSearch(message, 3);
+        const mail: IncomingMail = await request.json();
+        const vectorDBSearchResult = await handleQdrantSearch(`subject: ${mail.headers.subject}\nmessage: ${mail.plain}`, 3);
+
         console.log(vectorDBSearchResult)
         const emailAnswerEncoded = await emailReplyChain.invoke({
-            email: message,
+            email: mail.plain ?? "",
             vdb_answer_1: vectorDBSearchResult[0].metadata.answer,
             vdb_answer_2: vectorDBSearchResult[1].metadata.answer,
             vdb_answer_3: vectorDBSearchResult[2].metadata.answer,
         });
-        var emailAnswer = new TextDecoder().decode(emailAnswerEncoded)
+
+        const emailAnswer = new TextDecoder().decode(emailAnswerEncoded)
+
         console.log(`Answer: ${emailAnswer}`);
         const forwardDecisionEncoded = await forwardChain.invoke({
             answer: emailAnswer,
         });
+
         const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded)
         const forwardDecisionBool = forwardDecision == "true" ? true : false
         console.log(`Forward Decision: ${forwardDecision}`);
 
-        //
+        if(forwardDecisionBool) {
+          await resend.emails.send({
+            from: "onboarding@resend.dev",
+            to: mail.envelope.from,
+            subject: `re: ${mail.headers.subject}`,
+            text: emailAnswer,
+            react: Answer({
+              name: "Student",
+              question: mail.plain ?? "",
+              answer: emailAnswer,
+            }),
+          });
+        }
+
         return NextResponse.json(
             {
-                email: message,
+                email: mail,
                 vectorDBSearchResult: [vectorDBSearchResult[0].metadata.answer, vectorDBSearchResult[1].metadata.answer, vectorDBSearchResult[2].metadata.answer],
                 answer: emailAnswer,
                 forwardDecision: forwardDecisionBool,
             },
             {status: 201}
         );
-        //return new StreamingTextResponse(emailAnswer);
     } catch (error) {
         return NextResponse.json(
             {
@@ -54,15 +64,4 @@ export async function POST(request: NextRequest) {
             {status: 500}
         );
     }
-}
-
-async function handleEmail(mail: IncomingMail) {
-  let parsedEmail = `Subject: ${mail.headers.subject}\n
-                             Content:${mail.plain}`;
-
-  console.log(`Received email from ${mail.headers.from}\n
-                 Subject: ${mail.headers.subject}\n
-                 Content:${mail.plain}`);
-
-  return parsedEmail;
 }

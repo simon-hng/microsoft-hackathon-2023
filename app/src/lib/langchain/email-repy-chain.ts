@@ -60,4 +60,3 @@ const outputParser = new BytesOutputParser();
  */
 export const emailReplyChain = createAnswer.pipe(model).pipe(outputParser);
 export const forwardChain = createForwardDecision.pipe(model).pipe(outputParser);
-

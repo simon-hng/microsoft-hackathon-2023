@@ -12,14 +12,17 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface DropboxResetPasswordEmailProps {
-  userFirstname?: string;
-  resetPasswordLink?: string;
+interface AnswerEmailProps {
+  name: string;
+  question: string;
+  answer: string;
 }
 
-export const DropboxResetPasswordEmail = ({
-  userFirstname = "Jan",
-}: DropboxResetPasswordEmailProps) => {
+export const AnswerEmail = ({
+  name = "Jan",
+  question = "How do I log in?",
+  answer = "Clear your browser cache and cookies, and attempt to log in again.",
+}: AnswerEmailProps) => {
   const sources = [
     { href: "#", text: "TUM Help Desk" },
     { href: "#", text: "TUM.de" },
@@ -39,7 +42,7 @@ export const DropboxResetPasswordEmail = ({
             style={{ marginBottom: "40px" }}
           />
           <Section>
-            <Heading style={h1}>Hi {userFirstname}</Heading>
+            <Heading style={h1}>Hi {name}</Heading>
 
             <Text style={text}>Regarding your request:</Text>
           </Section>
@@ -51,31 +54,10 @@ export const DropboxResetPasswordEmail = ({
               paddingRight: "20px",
             }}
           >
-            <Text style={text}>
-              Dear TUM Help Desk, I hope this message finds you well. My name is
-              [Student Name], enrolled in [Your Program Name], and I'm
-              experiencing persistent login issues when trying to access the TUM
-              online portal. Despite entering correct credentials, the system
-              intermittently fails to recognize my login information. This issue
-              is impeding my access to essential study materials and submission
-              of assignments. I've tried basic troubleshooting without success.
-              Your prompt assistance in resolving this matter is crucial,
-              especially with impending assignment deadlines. Please advise on
-              the necessary steps to address this login problem. Thank you for
-              your attention to this urgent matter.
-            </Text>
+            <Text style={text}>{question}</Text>
           </Section>
           <Section>
-            <Text style={text}>
-              Dear [Student Name], Thank you for reaching out. We apologize for
-              the inconvenience you're facing. Our team is actively
-              investigating the login issues you've reported. In the meantime,
-              please try clearing your browser cache and cookies, and attempt to
-              log in again. If the problem persists, please provide more details
-              such as the browser and device you're using. This information will
-              help us expedite the resolution process. We appreciate your
-              patience and understanding. Best regards, TUM Help Desk
-            </Text>
+            <Text style={text}>{answer}</Text>
           </Section>
 
           <Section>
@@ -98,7 +80,7 @@ export const DropboxResetPasswordEmail = ({
   );
 };
 
-export default DropboxResetPasswordEmail;
+export default AnswerEmail;
 
 const main = {
   backgroundColor: "#f6f9fc",
