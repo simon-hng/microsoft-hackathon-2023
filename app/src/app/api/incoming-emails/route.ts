@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
     // receiving incoming email from CloudMailin
     const { message } = await request.json();
     console.log(message);
+
     const mail: IncomingMail = await request.json();
     // parsing email into a string
     const vectorDBSearchResult = await handleQdrantSearch(
@@ -94,7 +95,7 @@ export async function POST(request: NextRequest) {
 
     if (forwardDecision) {
       await resend.emails.send({
-        from: "onboarding@resend.dev",
+        from: "support@utn-ai.de",
         to: mail.envelope.from,
         subject: `re: ${mail.headers.subject}`,
         text: emailAnswer,

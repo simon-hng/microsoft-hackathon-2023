@@ -38,7 +38,7 @@ export const AnswerEmail = ({
             src="https://www.cit.tum.de/typo3/ext/tumtheme/Resources/Public/Icons/Org/tum-logo.png"
             width="73"
             height="38"
-            alt="Dropbox"
+            alt="TUM Logo"
             style={{ marginBottom: "40px" }}
           />
           <Section>
