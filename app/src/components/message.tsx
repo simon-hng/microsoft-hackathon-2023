@@ -29,7 +29,10 @@ export const ChatMessage = ({ message, showSources }: ChatMessageProps) => {
   );
 };
 
-const MessageContent = ({ message }: ChatMessageProps) => (
+interface MessageContentProps {
+  content: string;
+}
+export const MessageContent = ({ content }: MessageContentProps) => (
   <MemoizedReactMarkdown
     className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
     remarkPlugins={[remarkGfm, remarkMath]}
@@ -70,7 +73,7 @@ const MessageContent = ({ message }: ChatMessageProps) => (
       },
     }}
   >
-    {message.content}
+    {content}
   </MemoizedReactMarkdown>
 );
 
@@ -82,7 +85,7 @@ const BotMessage = ({ message, showSources }: ChatMessageProps) => {
       </Avatar>
       <div className="rounded-lg bg-gray-200 p-3 dark:bg-gray-800">
         <p className="text-gray-900 dark:text-gray-100">
-          <MessageContent message={message} />
+          <MessageContent content={message.content} />
         </p>
         {showSources && <SourceList />}
       </div>
@@ -96,7 +99,7 @@ const UserMessage = ({ message }: ChatMessageProps) => {
       <div className="flex items-end justify-end space-x-2">
         <div className="rounded-lg bg-blue-500 p-3 text-white">
           <p className="text-sm">
-            <MessageContent message={message} />
+            <MessageContent content={message.content} />
           </p>
         </div>
         <Avatar className="items-center justify-center bg-blue-500 text-white">
