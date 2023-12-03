@@ -21,6 +21,7 @@ import {
 } from "ai";
 import { ConversationalRetrievalQAChain } from "langchain/chains";
 import { BytesOutputParser } from "langchain/schema/output_parser";
+import {Document} from "langchain/dist/document";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
@@ -51,7 +52,10 @@ const CONDENSE_QUESTION_PROMPT = PromptTemplate.fromTemplate(
   condenseQuestionTemplate,
 );
 
-const answerTemplate = `Answer the question based only on the following context:
+const answerTemplate = `You are the direct representative of the TUM Help Desc for School of Management.
+The student is reaching out to you regarding their question. If you feel like you need more information (degree program, semester, etc.) to answer the question, please ask the student for it. If you are super helpful and direct (without unnecessary information) you will get a 1200€ raise next month. 
+Answer the question based only on the following context:
+
 {context}
 
 Question: {question}
@@ -93,14 +97,23 @@ export async function POST(request: NextRequest) {
     new StringOutputParser(),
   ]);
 
+  const qdrantExtractor = (documents: Document[], separator = "\n\n") => documents.map((doc) => `Question:${doc.metadata.answer}\n\nSample Answer:${doc.metadata.answer}`).join(separator);
+
   const answerChain = RunnableSequence.from([
     {
-      context: retriever.pipe(formatDocumentsAsString),
+      context: retriever.pipe(
+          // @ts-ignore
+          qdrantExtractor
+      ),
       question: new RunnablePassthrough(),
     },
     ANSWER_PROMPT,
     gptModel,
   ]);
+
+  // console.log("##############DEBUGGING HERE#################")
+  // console.log(await retriever.invoke("Management"))
+  // console.log("##########################################")
 
   const outputParser = new BytesOutputParser();
   const conversationalRetrievalQAChain = standaloneQuestionChain
@@ -108,10 +121,24 @@ export async function POST(request: NextRequest) {
     .pipe(outputParser);
 
   const body = await request.json();
+  console.log("##############BODY#################")
+  console.log(body);
+  console.log("###################################")
+
   const messages = body.messages ?? [];
+  console.log("##############MESSAGES#################")
+    console.log(messages);
+    console.log("###################################")
 
   const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
+    console.log("##############FORMATTED PREVIOUS MESSAGES#################")
+    console.log(formattedPreviousMessages);
+    console.log("###################################")
+
   const currentMessageContent = messages[messages.length - 1].content;
+    console.log("##############CURRENT MESSAGE CONTENT#################")
+    console.log(currentMessageContent);
+    console.log("###################################")
 
   const stream = await conversationalRetrievalQAChain.stream({
     chat_history: formattedPreviousMessages,
