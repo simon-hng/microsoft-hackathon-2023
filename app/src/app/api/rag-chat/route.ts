@@ -12,14 +12,12 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { formatDocumentsAsString } from "langchain/util/document";
 
 import {
   Message as VercelChatMessage,
   StreamingTextResponse,
   Message,
 } from "ai";
-import { ConversationalRetrievalQAChain } from "langchain/chains";
 import { BytesOutputParser } from "langchain/schema/output_parser";
 import { Document } from "langchain/dist/document";
 
