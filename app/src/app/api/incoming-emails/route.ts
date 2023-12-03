@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     // parsing email into a string
     const vectorDBSearchResult = await handleQdrantSearch(
       `subject: ${mail.headers.subject}\nmessage: ${mail.plain}`,
-      3,
+      5,
     );
 
     // module stuff
@@ -69,6 +69,7 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(vectorDBSearchResult);
+
     const emailAnswerEncoded = await emailReplyChain.invoke({
       email: `subject: ${mail.headers.subject ?? ""}\nmessage: ${mail.plain ?? ""}`,
       vdb_answer_1: vectorDBSearchResult[0].metadata.answer,
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
     console.log(`Forward Decision: ${forwardDecision}`);
     console.log(`Forward DecisionBool: ${forwardDecisionBool}, ${emailToForwardTo}`);
 
-    if (forwardDecision) {
+    if (!forwardDecisionBool) {
       await resend.emails.send({
         from: "support@utn-ai.de",
         to: mail.envelope.from,
@@ -107,6 +108,18 @@ export async function POST(request: NextRequest) {
           name: "Student",
           question: mail.plain ?? "",
           answer: emailAnswer,
+        }),
+      });
+    } else {
+      await resend.emails.send({
+        from: "support@utn-ai.de",
+        to: mail.envelope.from,
+        subject: `re: ${mail.headers.subject}`,
+        text: emailAnswer,
+        react: Answer({
+          name: "Student",
+          question: mail.plain ?? "",
+          answer: "Your email has been forwarded to the following address: " + emailToForwardTo + "\nBest regards,\n TUM SoM Student Support Bot",
         }),
       });
     }
