@@ -38,7 +38,7 @@ const MessageContent = ({ message }: ChatMessageProps) => (
         return <p className="mb-2 last:mb-0">{children}</p>;
       },
       a({ href }) {
-        return <LinkPreview href={href ?? "#"} />;
+        return <LinkPreview href={href ?? "#"} title={href}/>;
       },
       code({ node, inline, className, children, ...props }) {
         if (children.length) {
