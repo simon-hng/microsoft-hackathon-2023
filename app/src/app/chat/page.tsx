@@ -16,7 +16,7 @@ export default function Chat() {
     handleSubmit,
     setInput,
     isLoading,
-  } = useChat();
+  } = useChat({api:"/api/rag-chat"});
 
   return (
     <>
