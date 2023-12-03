@@ -59,4 +59,6 @@ const outputParser = new BytesOutputParser();
  * const chain = RunnableSequence.from([prompt, model, outputParser]);
  */
 export const emailReplyChain = createAnswer.pipe(model).pipe(outputParser);
-export const forwardChain = createForwardDecision.pipe(model).pipe(outputParser);
+export const forwardChain = createForwardDecision
+  .pipe(model)
+  .pipe(outputParser);
