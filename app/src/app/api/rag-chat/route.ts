@@ -9,8 +9,6 @@ import {
 
 import { ChatOpenAI } from "langchain/chat_models/openai";
 
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 
 import {
@@ -20,6 +18,7 @@ import {
 } from "ai";
 import { BytesOutputParser } from "langchain/schema/output_parser";
 import { Document } from "langchain/document";
+import { getVectorStore } from "@/lib/langchain/qdrant";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
@@ -31,13 +30,6 @@ const gptModel = new ChatOpenAI({
   azureOpenAIApiVersion: "2023-06-01-preview",
   azureOpenAIApiInstanceName: env.AZURE_OPENAI_RESOURCE,
   azureOpenAIApiDeploymentName: env.AZURE_OPENAI_MODEL,
-});
-
-const embeddingsModel = new OpenAIEmbeddings({
-  azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
-  azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION,
-  azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_RESOURCE,
-  azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_EMBEDDINGS_MODEL,
 });
 
 const condenseQuestionTemplate = `You are the direct representative of the TUM Help Desc for School of Management. Given the following conversation and a follow up question, rephrase the follow up question to be a standalone (basically, the new question has to be contexted on the prior chat history) question, in its original language. This will help to stay on track with the follow up questions.
@@ -300,15 +292,7 @@ const formatChatHistory = (chatHistory: Message[]) => {
 
 //Chat with Conversational Retrieval Chain
 export async function POST(request: NextRequest) {
-  const vectorStore = await QdrantVectorStore.fromExistingCollection(
-    embeddingsModel,
-    {
-      url: env.QDRANT_URL,
-      apiKey: env.QDRANT_TOKEN,
-      collectionName: env.QDRANT_COLLECTION_NAME,
-    },
-  );
-
+  const vectorStore = await getVectorStore();
   const retriever = vectorStore.asRetriever(5);
 
 
