@@ -420,5 +420,3 @@ const outputParser = new BytesOutputParser();
  * const chain = RunnableSequence.from([prompt, model, outputParser]);
  */
 export const moduleCall = prompt.pipe(model).pipe(outputParser);
-
-
