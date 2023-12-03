@@ -12,7 +12,7 @@ const SourceView = ({source}: {source: Source}) => {
       <HoverCardTrigger asChild>
         <File className="w-6 h-6"/>
       </HoverCardTrigger>
-        <HoverCardContent className="z-10 w-min bg-white p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all">
+        <HoverCardContent className="z-10 w-min min-w-[26rem] bg-white p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all">
           <div className="flex justify-between space-x-4 max-h-80 overflow-y-scroll">
             <div className="space-y-2">
             {Object.entries(source.metadata).map(([key, value]) =>
