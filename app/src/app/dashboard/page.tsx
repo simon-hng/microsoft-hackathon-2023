@@ -1,5 +1,4 @@
 import {
-  Card,
   Title,
   Text,
   Tab,
@@ -21,14 +20,15 @@ export default async function Dashboard() {
     <main className="mx-8">
       <Title>Dashboard</Title>
       <Text>Email Monitoring</Text>
-      <TabGroup className="mt-6">
+
+      <TabGroup className="mt-10">
         <TabList>
           <Tab>Metrics</Tab>
           <Tab>Emails</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <KpiCards />
+            <KpiCards logs={data}/>
             <div className="mt-6">
               <BarChartStacked />
             </div>
