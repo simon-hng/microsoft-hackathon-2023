@@ -17,11 +17,11 @@ export default async function Dashboard() {
   const data: EmailLog[] = await kv.zrange("email-logs", 0, 0);
 
   return (
-    <main className="mx-8">
-      <Title>Dashboard</Title>
+    <main className="mx-8 pt-24">
+      <h1 className="text-4xl font-semibold">Dashboard</h1>
       <Text>Email Monitoring</Text>
 
-      <TabGroup className="mt-10">
+      <TabGroup className="mt-4">
         <TabList>
           <Tab>Metrics</Tab>
           <Tab>Emails</Tab>
