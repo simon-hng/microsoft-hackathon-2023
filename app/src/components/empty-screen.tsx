@@ -5,8 +5,8 @@ import { ArrowRight } from "@phosphor-icons/react";
 
 const exampleMessages = [
   {
-    heading: "Explain technical concepts",
-    message: `What is a "serverless function"?`,
+    heading: "How can I track my credits",
+    message: `How can I track my credits`,
   },
   {
     heading: "Summarize an article",

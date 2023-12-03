@@ -1,13 +1,8 @@
 export type EmailLog = {
+  status: "answered" | "forwarded";
+  subject: string;
   question: string;
   email: string;
   timestamp: number;
-} & (
-  | {
-      status: "answered";
-      answer: string;
-    }
-  | {
-      status: "forwarded";
-    }
-);
+  answer: string;
+};

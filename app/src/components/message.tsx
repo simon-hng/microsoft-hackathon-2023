@@ -6,6 +6,7 @@ import { CodeBlock } from "@/components/ui/codeblock";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import { SourceList } from "./source-list";
+import {cn} from '@/lib/utils'
 import { LinkPreview } from "./link-preview";
 
 interface ChatMessageProps {
@@ -29,16 +30,20 @@ export const ChatMessage = ({ message, showSources }: ChatMessageProps) => {
   );
 };
 
-const MessageContent = ({ message }: ChatMessageProps) => (
+interface MessageContentProps {
+  content: string;
+  className?: string;
+}
+export const MessageContent = ({ content, className }: MessageContentProps) => (
   <MemoizedReactMarkdown
-    className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
+    className={cn("prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words", className)}
     remarkPlugins={[remarkGfm, remarkMath]}
     components={{
       p({ children }) {
         return <p className="mb-2 last:mb-0">{children}</p>;
       },
       a({ href }) {
-        return <LinkPreview href={href ?? "#"} title={href}/>;
+        return <LinkPreview href={href ?? "#"} title={href} />;
       },
       code({ node, inline, className, children, ...props }) {
         if (children.length) {
@@ -70,7 +75,7 @@ const MessageContent = ({ message }: ChatMessageProps) => (
       },
     }}
   >
-    {message.content}
+    {content}
   </MemoizedReactMarkdown>
 );
 
@@ -82,7 +87,7 @@ const BotMessage = ({ message, showSources }: ChatMessageProps) => {
       </Avatar>
       <div className="rounded-lg bg-gray-200 p-3 dark:bg-gray-800">
         <p className="text-gray-900 dark:text-gray-100">
-          <MessageContent message={message} />
+          <MessageContent content={message.content} />
         </p>
         {showSources && <SourceList />}
       </div>
@@ -96,7 +101,7 @@ const UserMessage = ({ message }: ChatMessageProps) => {
       <div className="flex items-end justify-end space-x-2">
         <div className="rounded-lg bg-blue-500 p-3 text-white">
           <p className="text-sm">
-            <MessageContent message={message} />
+            <MessageContent content={message.content} />
           </p>
         </div>
         <Avatar className="items-center justify-center bg-blue-500 text-white">

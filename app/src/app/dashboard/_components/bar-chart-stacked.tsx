@@ -23,9 +23,6 @@ const data = [
   },
 ];
 
-const valueFormatter = (number: number) =>
-  Intl.NumberFormat("us").format(number).toString();
-
 export default function BarChartStacked() {
   return (
     <Card>
@@ -37,7 +34,6 @@ export default function BarChartStacked() {
         index="Month"
         categories={["Automatically answered", "Manual answer required"]}
         colors={["emerald", "red"]}
-        valueFormatter={valueFormatter}
         stack={true}
       />
     </Card>

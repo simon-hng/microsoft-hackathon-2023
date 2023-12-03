@@ -1,5 +1,6 @@
 import { type Message } from "ai";
 import { ChatMessage } from "./message";
+import { CircleNotch } from "@phosphor-icons/react";
 
 export interface ChatList {
   messages: Message[];
@@ -16,6 +17,11 @@ export function ChatList({ messages, isLoading }: ChatList) {
       {messages.map((message, index) => (
         <ChatMessage key={index} message={message} showSources={!isLoading} />
       ))}
+      {isLoading && (
+        <div className="mt-4 flex justify-center">
+          <CircleNotch className="h-10 w-10 animate-spin text-primary" />
+        </div>
+      )}
     </div>
   );
 }

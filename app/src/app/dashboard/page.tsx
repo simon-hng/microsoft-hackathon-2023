@@ -1,7 +1,4 @@
-"use client";
-
 import {
-  Card,
   Title,
   Text,
   Tab,
@@ -12,30 +9,32 @@ import {
 } from "@tremor/react";
 import BarChartStacked from "./_components/bar-chart-stacked";
 import KpiCards from "./_components/kpi-card";
+import { EmailLog } from "@/lib/types/logs";
+import { kv } from "@vercel/kv";
+import { EmailsList } from "./_components/emails-list";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const data: EmailLog[] = await kv.zrange("email-logs", 0, 0);
+
   return (
-    <main className="mx-8">
-      <Title>Dashboard</Title>
+    <main className="mx-8 pt-24">
+      <h1 className="text-4xl font-semibold">Dashboard</h1>
       <Text>Email Monitoring</Text>
-      <TabGroup className="mt-6">
+
+      <TabGroup className="mt-4">
         <TabList>
           <Tab>Metrics</Tab>
           <Tab>Emails</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <KpiCards />
+            <KpiCards logs={data}/>
             <div className="mt-6">
               <BarChartStacked />
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="mt-6">
-              <Card>
-                <div className="h-96" />
-              </Card>
-            </div>
+            <EmailsList logs={data} />
           </TabPanel>
         </TabPanels>
       </TabGroup>

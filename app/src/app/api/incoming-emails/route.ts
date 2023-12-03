@@ -15,11 +15,34 @@ import * as moduleHandbook from "@/lib/langchain/module_descriptions/desc.json";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
+const logEmail = (email: IncomingMail, answer: string, forwarded: boolean) => {
+    let log: Partial<EmailLog> = {
+      subject: Array.isArray(email.headers.subject) ? email.headers.subject.at(0) ?? "" : email.headers.subject,
+      email: email.envelope.from,
+      question: email.plain ?? "",
+      answer,
+      timestamp: Date.now(),
+    };
+
+    if(forwarded) {
+      log.status = "forwarded";
+    } else {
+      log.status = "answered";
+      log.answer = answer;
+    }
+
+    kv.zadd("email-logs", {
+      score: (log as EmailLog).timestamp,
+      member: JSON.stringify(log),
+    });
+}
+
 export async function POST(request: NextRequest) {
   try {
     // receiving incoming email from CloudMailin
     const { message } = await request.json();
     console.log(message);
+
     const mail: IncomingMail = await request.json();
     // parsing email into a string
     const vectorDBSearchResult = await handleQdrantSearch(
@@ -60,18 +83,19 @@ export async function POST(request: NextRequest) {
       // module information
       further_info: moduleContext,
     });
-    var emailAnswer = new TextDecoder().decode(emailAnswerEncoded);
+
+    const emailAnswer = new TextDecoder().decode(emailAnswerEncoded);
     console.log(`Answer: ${emailAnswer}`);
     const forwardDecisionEncoded = await forwardChain.invoke({
       answer: emailAnswer,
     });
-    const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded);
-    const forwardDecisionBool = forwardDecision == "true" ? true : false;
+
+    const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded) == "true";
     console.log(`Forward Decision: ${forwardDecision}`);
 
-    if (forwardDecisionBool) {
+    if (forwardDecision) {
       await resend.emails.send({
-        from: "onboarding@resend.dev",
+        from: "support@utn-ai.de",
         to: mail.envelope.from,
         subject: `re: ${mail.headers.subject}`,
         text: emailAnswer,
@@ -81,32 +105,9 @@ export async function POST(request: NextRequest) {
           answer: emailAnswer,
         }),
       });
-
-      const log: EmailLog = {
-        status: "answered",
-        email: mail.envelope.from,
-        question: mail.plain ?? "",
-        answer: emailAnswer,
-        timestamp: Date.now(),
-      };
-
-      kv.zadd("email-logs", {
-        score: log.timestamp,
-        member: JSON.stringify(log),
-      });
-    } else {
-      const log: EmailLog = {
-        status: "forwarded",
-        email: mail.envelope.from,
-        question: mail.plain ?? "",
-        timestamp: Date.now(),
-      };
-
-      kv.zadd("email-logs", {
-        score: log.timestamp,
-        member: JSON.stringify(log),
-      });
     }
+
+    logEmail(mail, emailAnswer, forwardDecision)
 
     return NextResponse.json(
       {
@@ -117,7 +118,7 @@ export async function POST(request: NextRequest) {
           vectorDBSearchResult[2].metadata.answer,
         ],
         answer: emailAnswer,
-        forwardDecision: forwardDecisionBool,
+        forwardDecision: forwardDecision,
       },
       { status: 201 },
     );
