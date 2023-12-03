@@ -10,34 +10,60 @@ import { Resend } from "resend";
 import { kv } from "@vercel/kv";
 import Answer from "@email/emails/answer";
 import { EmailLog } from "@/lib/types/logs";
+import { moduleCall } from "@/lib/langchain/module-handbook";
+import * as moduleHandbook from "@/lib/langchain/module_descriptions/desc.json";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
+    // receiving incoming email from CloudMailin
+    const { message } = await request.json();
+    console.log(message);
     const mail: IncomingMail = await request.json();
+    // parsing email into a string
     const vectorDBSearchResult = await handleQdrantSearch(
       `subject: ${mail.headers.subject}\nmessage: ${mail.plain}`,
       3,
     );
 
+    // module stuff
+    const moduleAnswer = await moduleCall.invoke({
+      email: message,
+    });
+    const mAnswer = new TextDecoder().decode(moduleAnswer);
+
+    let moduleContext = "";
+
+    const mH: { [key: string]: { [key: string]: string } } = moduleHandbook;
+
+    if (mAnswer != "OTHER") {
+      // load json
+
+      // get context out of json
+      var moduleD = mH[mAnswer];
+
+      moduleContext = `Further context: Relevant module title: ${mAnswer}, Description: ${JSON.stringify(
+        moduleD,
+      )}`;
+    }
+
     console.log(vectorDBSearchResult);
     const emailAnswerEncoded = await emailReplyChain.invoke({
-      email: mail.plain ?? "",
+      email: message,
       vdb_answer_1: vectorDBSearchResult[0].metadata.answer,
       vdb_answer_2: vectorDBSearchResult[1].metadata.answer,
       vdb_answer_3: vectorDBSearchResult[2].metadata.answer,
+      // module information
+      further_info: moduleContext,
     });
-
-    const emailAnswer = new TextDecoder().decode(emailAnswerEncoded);
-
+    var emailAnswer = new TextDecoder().decode(emailAnswerEncoded);
     console.log(`Answer: ${emailAnswer}`);
     const forwardDecisionEncoded = await forwardChain.invoke({
       answer: emailAnswer,
     });
-
     const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded);
-    const forwardDecisionBool = forwardDecision == "true";
+    const forwardDecisionBool = forwardDecision == "true" ? true : false;
     console.log(`Forward Decision: ${forwardDecision}`);
 
     if (forwardDecisionBool) {
