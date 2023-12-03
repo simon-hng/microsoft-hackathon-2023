@@ -17,7 +17,7 @@ const SourceView = ({source}: {source: Source}) => {
             <div className="space-y-2">
             {Object.entries(source.metadata).map(([key, value]) =>
               (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2" key={key}>
                 <dt className="text-gray-500">{key}:</dt>
                 <dd className="font-semibold">{value}</dd>
               </div>))
