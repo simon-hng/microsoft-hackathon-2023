@@ -52,8 +52,11 @@ export async function POST(request: NextRequest) {
     const emailAnswerEncoded = await emailReplyChain.invoke({
       email: message,
       vdb_answer_1: vectorDBSearchResult[0].metadata.answer,
+      vdb_question_1: vectorDBSearchResult[0].metadata.question,
       vdb_answer_2: vectorDBSearchResult[1].metadata.answer,
+      vdb_question_2: vectorDBSearchResult[1].metadata.question,
       vdb_answer_3: vectorDBSearchResult[2].metadata.answer,
+      vdb_question_3: vectorDBSearchResult[2].metadata.question,
       // module information
       further_info: moduleContext,
     });
