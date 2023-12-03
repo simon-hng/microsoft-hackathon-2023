@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { IncomingMail } from "cloudmailin";
 import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
 import { handleQdrantSearch } from "./rag";
-import { emailReplyChain } from "@/lib/langchain/email-repy-chain";
+import { emailReplyChain, forwardChain } from "@/lib/langchain/email-repy-chain";
 
 const userName = process.env.CLOUDMAILIN_USERNAME || "cloudmailin";
 const apiKey = process.env.CLOUDMAILIN_APIKEY || "apikey";
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
             answer: emailAnswer,
         });
         const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded)
-        const forwardDecisionBool = forwardDecision == "true" ? true : false
+        const forwardDecisionBool = forwardDecision.toLowerCase() == "false" ? false : true
         console.log(`Forward Decision: ${forwardDecision}`);
 
         //
