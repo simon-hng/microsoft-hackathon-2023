@@ -94,7 +94,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     Is structured in a friendly and professional tone suitable for email communication with a student.
 
 Output:
-Compose the answer email using the refactored and selected answer, ensuring it is tailored to the student's specific inquiry and presented in a manner that is easy to understand.`;
+Compose the body of the answer email using the refactored and selected answer, ensuring it is tailored to the student's specific inquiry and presented in a manner that is easy to understand. End the email body with: "Best regards, TUM SoM Student Support Bot".`;
 
 const FORWARD_OR_NOT = `# Here's commonly used abbreviations at the TUM School of Management:
 - SoM = School of Management
@@ -326,8 +326,9 @@ Task to be done:
     Decide if the answer to the inquiry is suitable and can be sent back directly, or if it needs more information or if it requires forwarding to student support.
     It's very important that you only answer generic questions directly and that the outcome for complex questions is that they will be forwarded to student support!  Especially forward questions that are related to grades, exams, and credits if they are missing information on Credits/ECTS, semester, or study program.
     If you figure out that the student definitely needs to reach out to further student support teams, please output true for the forward decision!
-    Output format: Decide if it should be forwarded to student support (true) or sent directly to the student (false). In cases where forwarding is necessary, provide the specific contact information (email and name) of the relevant student support team. Use the study program mentioned in the student's email to identify the specific support team; if no program is specified, resort to the general contact information.`;
-//Output format: Always give me just a boolean value (true / false) for whether the email should be forwarded to student support (true), if you need more information (true) or can be sent directly back to the student (false). Also give me the contact information (email and name) for the student support team that should be contacted (if applicable). Only select a specific support team if a study program is given by the student, otherwise use the general contact. Take the contact info from the context I gave to you.`;
+    Output format: After your reasoning, give me your final output in the following format as your very last output: forwardDecision: true|false,Optional(emailToForwardTo: string)`;
+    //Output format: Always give me just a boolean value (true / false) for whether the email should be forwarded to student support (true), if you need more information (true) or can be sent directly back to the student (false). Also give me the contact information (email and name) for the student support team that should be contacted (if applicable). Only select a specific support team if a study program is given by the student, otherwise use the general contact. Take the contact info from the context I gave to you.`;
+    //Output format: Decide if it should be forwarded to student support (true) or sent directly to the student (false). In cases where forwarding is necessary, provide the specific contact information (email and name) of the relevant student support team. Use the study program mentioned in the student's email to identify the specific support team; if no program is specified, resort to the general contact information.
 
 const createAnswer = PromptTemplate.fromTemplate(CREATE_ANSWER);
 const createForwardDecision = PromptTemplate.fromTemplate(FORWARD_OR_NOT);

@@ -40,9 +40,6 @@ const logEmail = (email: IncomingMail, answer: string, forwarded: boolean) => {
 export async function POST(request: NextRequest) {
   try {
     // receiving incoming email from CloudMailin
-    const { message } = await request.json();
-    console.log(message);
-
     const mail: IncomingMail = await request.json();
     // parsing email into a string
     const vectorDBSearchResult = await handleQdrantSearch(
@@ -52,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     // module stuff
     const moduleAnswer = await moduleCall.invoke({
-      email: message,
+      email: mail.plain ?? "",
     });
     const mAnswer = new TextDecoder().decode(moduleAnswer);
 
@@ -73,7 +70,7 @@ export async function POST(request: NextRequest) {
 
     console.log(vectorDBSearchResult);
     const emailAnswerEncoded = await emailReplyChain.invoke({
-      email: message,
+      email: `subject: ${mail.headers.subject ?? ""}\nmessage: ${mail.plain ?? ""}`,
       vdb_answer_1: vectorDBSearchResult[0].metadata.answer,
       vdb_question_1: vectorDBSearchResult[0].metadata.question,
       vdb_answer_2: vectorDBSearchResult[1].metadata.answer,
@@ -90,8 +87,15 @@ export async function POST(request: NextRequest) {
       answer: emailAnswer,
     });
 
-    const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded) == "true";
+    const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded);
+    const regex = /forwardDecision: ?(true|false)/;
+    const emailRegex = /emailToForwardTo: ?"?([a-zA-Z._-]+@tum.de)/;
+    const match = regex.exec(forwardDecision);
+    const forwardDecisionBool = match ? match[1].toLowerCase() === "true" : false;
+    const emailMatch = emailRegex.exec(forwardDecision);
+    const emailToForwardTo = emailMatch ? emailMatch[1] : "study@tum.de";
     console.log(`Forward Decision: ${forwardDecision}`);
+    console.log(`Forward DecisionBool: ${forwardDecisionBool}, ${emailToForwardTo}`);
 
     if (forwardDecision) {
       await resend.emails.send({
@@ -107,18 +111,19 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    logEmail(mail, emailAnswer, forwardDecision)
+    logEmail(mail, emailAnswer, forwardDecisionBool)
 
     return NextResponse.json(
       {
-        email: mail,
+        email: `subject: ${mail.headers.subject ?? ""}\nmessage: ${mail.plain ?? ""}`,
         vectorDBSearchResult: [
           vectorDBSearchResult[0].metadata.answer,
           vectorDBSearchResult[1].metadata.answer,
           vectorDBSearchResult[2].metadata.answer,
         ],
         answer: emailAnswer,
-        forwardDecision: forwardDecision,
+        forwardDecision: forwardDecisionBool,
+        forwardEmail: emailToForwardTo,
       },
       { status: 201 },
     );
