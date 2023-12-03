@@ -19,7 +19,7 @@ import {
   Message,
 } from "ai";
 import { BytesOutputParser } from "langchain/schema/output_parser";
-import { Document } from "langchain/dist/document";
+import { Document } from "langchain/document";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
@@ -40,7 +40,7 @@ const embeddingsModel = new OpenAIEmbeddings({
   azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_EMBEDDINGS_MODEL,
 });
 
-const condenseQuestionTemplate = `You are the direct representative of the TUM Help Desc for School of Management. Given the following conversation and a follow up question, rephrase the follow up question to be a standalone (basically, the new question has to be contexted on the prior chat history) question, in its original language. This will help to stay on track with the follow up questions. 
+const condenseQuestionTemplate = `You are the direct representative of the TUM Help Desc for School of Management. Given the following conversation and a follow up question, rephrase the follow up question to be a standalone (basically, the new question has to be contexted on the prior chat history) question, in its original language. This will help to stay on track with the follow up questions.
 
 Chat History:
 {chat_history}
@@ -129,7 +129,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Katinka Kleinheinz
     - Email: katinka.kleinheinz@tum.de
     - Location: Munich, Heilbronn
-  
+
   Programm-Management/Studienfachberatung B.Sc. Management and Technology (München):
   - Michaela Krieger
     - Name: Michaela Krieger
@@ -143,7 +143,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Yulia Movsesova
     - Email: yulia.movsesova@tum.de
     - Location: Munich
-  
+
   Programm-Management/Studienfachberatung B.Sc. Management and Technology (Heilbronn):
   - Anke Dautel
     - Name: Anke Dautel
@@ -153,7 +153,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Martin Semjank
     - Email: martin.semjank@tum.de
     - Location: Heilbronn
-  
+
   Programm-Management/Studienfachberatung M. Sc. Management and Technology:
   - Andreas Bauerfeld
     - Name: Andreas Bauerfeld
@@ -163,7 +163,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Katja Lesske
     - Email: katja.lesske@tum.de
     - Location: Munich
-  
+
   Programm-Management/Studienfachberatung M.Sc. Management (München):
   - Amelie Haag
     - Name: Amelie Haag
@@ -173,7 +173,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Katja Leßke
     - Email: katja.lesske@tum.de
     - Location: Munich
-  
+
   Programm-Management/Studienfachberatung M.Sc. Management (Heilbronn):
   - Anke Dautel
     - Name: Anke Dautel
@@ -183,7 +183,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Christine Vogt-Bolch
     - Email: christine.vogt-bolch@tum.de
     - Location: Heilbronn
-  
+
   Programm-Management/Studienfachberatung M.Sc. Consumer Science:
   - Katja Leßke
     - Name: Katja Leßke
@@ -193,13 +193,13 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Alina Paulig
     - Email: alina.paulig@tum.de
     - Location: Munich
-  
+
   Programm-Management/Studienfachberatung M.Sc. Finance & Information Management:
   - Charlotte Bayer
     - Name: Charlotte Bayer
     - Email: charlotte.bayer@tum.de
     - Location: Munich
-  
+
   Buddy Program:
   - Katja Leßke
     - Name: Katja Leßke
@@ -209,7 +209,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Zuzana Zechovska
     - Email: zuzana.zechovska@tum.de
     - Location: Heilbronn, Munich
-  
+
   Studierendenaustausch/Auslandsstudienberatung/Auslandsanerkennungen:
   - Josephina Buhr
     - Name: Josephina Buhr
@@ -256,13 +256,13 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     - Name: Janine Rothenburger
     - Email: janine.rothenburger@tum.de
     - Location: Munich
-    
+
   PrüfungsausschussangelegenheitenBitte wenden Sie sich mit Ihrem Anliegen an folgende E-Mail-Adresse: examinationboard@mgt.tum.de:
   - Janine Rothenburger
     - Name: Janine Rothenburger
     - Email: janine.rothenburger@tum.de
     - Location: Heilbronn, Munich
-  
+
   Programm-Management/Studienfachberatung Master in Management and Digital Technology (Heilbronn):
   - Sabrina Huber
     - Name: Sabrina Huber
