@@ -6,6 +6,7 @@ import { CodeBlock } from "@/components/ui/codeblock";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import { SourceList } from "./source-list";
+import {cn} from '@/lib/utils'
 import { LinkPreview } from "./link-preview";
 
 interface ChatMessageProps {
@@ -31,10 +32,11 @@ export const ChatMessage = ({ message, showSources }: ChatMessageProps) => {
 
 interface MessageContentProps {
   content: string;
+  className?: string;
 }
-export const MessageContent = ({ content }: MessageContentProps) => (
+export const MessageContent = ({ content, className }: MessageContentProps) => (
   <MemoizedReactMarkdown
-    className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
+    className={cn("prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words", className)}
     remarkPlugins={[remarkGfm, remarkMath]}
     components={{
       p({ children }) {

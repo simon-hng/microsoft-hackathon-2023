@@ -3,6 +3,7 @@ import { EmailLog } from "@/lib/types/logs";
 import { Card, Title, Text, Badge } from "@tremor/react";
 import { Separator } from "@/components/ui/separator";
 import { Robot } from "@phosphor-icons/react";
+import { MessageContent } from "@/components/message";
 
 interface EmailsListProps {
   logs: EmailLog[];
@@ -30,11 +31,17 @@ export const EmailsList = ({ logs }: EmailsListProps) => {
               </Badge>
             </div>
           </div>
-          <p>{log.question}</p>
 
-          <Separator className="my-4" />
+          <Text className="mb-2">Question</Text>
+          <MessageContent content={log.question} className="bg-gray-100 p-4" />
 
-          {log.status == "answered" && <p>{log.answer}</p>}
+          {log.status == "answered" &&
+          <>
+            <Separator className="my-4" />
+            <Text className="mb-2">Answer</Text>
+            <MessageContent content={log.answer} className="bg-gray-100 p-4" />
+          </>
+          }
         </Card>
       ))}
     </div>
