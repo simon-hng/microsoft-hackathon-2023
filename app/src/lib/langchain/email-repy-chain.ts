@@ -94,7 +94,7 @@ Refactor the chosen answer to enhance its informativeness. Ensure that the refac
     Is structured in a friendly and professional tone suitable for email communication with a student.
 
 Output:
-Compose the answer email using the refactored and selected answer, ensuring it is tailored to the student's specific inquiry and presented in a manner that is easy to understand.`;
+Compose the body of the answer email using the refactored and selected answer, ensuring it is tailored to the student's specific inquiry and presented in a manner that is easy to understand. End the email body with: "Best regards, TUM SoM Student Support Bot".`;
 
 const FORWARD_OR_NOT = `# Here's commonly used abbreviations at the TUM School of Management:
 - SoM = School of Management
