@@ -8,6 +8,8 @@ import remarkMath from "remark-math";
 import { SourceList } from "./source-list";
 import {cn} from '@/lib/utils'
 import { LinkPreview } from "./link-preview";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface ChatMessageProps {
   message: Message;
@@ -80,6 +82,15 @@ export const MessageContent = ({ content, className }: MessageContentProps) => (
 );
 
 const BotMessage = ({ message, showSources }: ChatMessageProps) => {
+  const query = useQuery({
+    queryKey: ["sources", message.id],
+    enabled: showSources,
+    queryFn: () => axios.get("api/sources",{
+      params: {
+        question: message.content
+      }}).then(res => res.data)
+    });
+
   return (
     <div className="flex items-end space-x-2">
       <Avatar className="items-center justify-center bg-primary text-primary-foreground">
@@ -89,7 +100,9 @@ const BotMessage = ({ message, showSources }: ChatMessageProps) => {
         <p className="text-gray-900 dark:text-gray-100">
           <MessageContent content={message.content} />
         </p>
-        {showSources && <SourceList />}
+        {query.data && (
+          <SourceList sources={query.data}/>
+        )}
       </div>
     </div>
   );

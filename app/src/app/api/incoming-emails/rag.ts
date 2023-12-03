@@ -8,7 +8,7 @@ const embeddings = new OpenAIEmbeddings({
   azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_EMBEDDINGS_MODEL,
 });
 
-export async function handleQdrantSearch(text: string, limit: number = 2) {
+export async function handleQdrantSearch(text: string, limit: number) {
   console.log(`Searching for ${text}`);
   const vectorStore = await QdrantVectorStore.fromExistingCollection(
     embeddings,

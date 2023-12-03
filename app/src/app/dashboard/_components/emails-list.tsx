@@ -2,7 +2,7 @@
 import { EmailLog } from "@/lib/types/logs";
 import { Card, Title, Text, Badge } from "@tremor/react";
 import { Separator } from "@/components/ui/separator";
-import { Robot } from "@phosphor-icons/react";
+import { Envelope, Robot } from "@phosphor-icons/react";
 import { MessageContent } from "@/components/message";
 
 interface EmailsListProps {
@@ -11,8 +11,8 @@ interface EmailsListProps {
 export const EmailsList = ({ logs }: EmailsListProps) => {
   return (
     <div>
-      {logs.map((log) => (
-        <Card>
+      {logs.map((log, index) => (
+        <Card key={`${index}-${log.subject}`}>
           <div className="flex justify-between mb-8">
             <div>
               <Title>
