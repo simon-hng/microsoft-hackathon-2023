@@ -18,8 +18,8 @@ export function ChatList({ messages, isLoading }: ChatList) {
         <ChatMessage key={index} message={message} showSources={!isLoading} />
       ))}
       {isLoading && (
-        <div className="flex justify-center mt-4">
-          <CircleNotch className="animate-spin w-10 h-10 text-primary"/>
+        <div className="mt-4 flex justify-center">
+          <CircleNotch className="h-10 w-10 animate-spin text-primary" />
         </div>
       )}
     </div>

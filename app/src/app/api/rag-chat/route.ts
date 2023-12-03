@@ -21,7 +21,7 @@ import {
 } from "ai";
 import { ConversationalRetrievalQAChain } from "langchain/chains";
 import { BytesOutputParser } from "langchain/schema/output_parser";
-import {Document} from "langchain/dist/document";
+import { Document } from "langchain/dist/document";
 
 const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
@@ -97,13 +97,19 @@ export async function POST(request: NextRequest) {
     new StringOutputParser(),
   ]);
 
-  const qdrantExtractor = (documents: Document[], separator = "\n\n") => documents.map((doc) => `Question:${doc.metadata.answer}\n\nSample Answer:${doc.metadata.answer}`).join(separator);
+  const qdrantExtractor = (documents: Document[], separator = "\n\n") =>
+    documents
+      .map(
+        (doc) =>
+          `Question:${doc.metadata.answer}\n\nSample Answer:${doc.metadata.answer}`,
+      )
+      .join(separator);
 
   const answerChain = RunnableSequence.from([
     {
       context: retriever.pipe(
-          // @ts-ignore
-          qdrantExtractor
+        // @ts-ignore
+        qdrantExtractor,
       ),
       question: new RunnablePassthrough(),
     },
@@ -121,24 +127,24 @@ export async function POST(request: NextRequest) {
     .pipe(outputParser);
 
   const body = await request.json();
-  console.log("##############BODY#################")
+  console.log("##############BODY#################");
   console.log(body);
-  console.log("###################################")
+  console.log("###################################");
 
   const messages = body.messages ?? [];
-  console.log("##############MESSAGES#################")
-    console.log(messages);
-    console.log("###################################")
+  console.log("##############MESSAGES#################");
+  console.log(messages);
+  console.log("###################################");
 
   const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
-    console.log("##############FORMATTED PREVIOUS MESSAGES#################")
-    console.log(formattedPreviousMessages);
-    console.log("###################################")
+  console.log("##############FORMATTED PREVIOUS MESSAGES#################");
+  console.log(formattedPreviousMessages);
+  console.log("###################################");
 
   const currentMessageContent = messages[messages.length - 1].content;
-    console.log("##############CURRENT MESSAGE CONTENT#################")
-    console.log(currentMessageContent);
-    console.log("###################################")
+  console.log("##############CURRENT MESSAGE CONTENT#################");
+  console.log(currentMessageContent);
+  console.log("###################################");
 
   const stream = await conversationalRetrievalQAChain.stream({
     chat_history: formattedPreviousMessages,

@@ -17,7 +17,7 @@ export const SourceList = () => {
         </div>
         <ul className="flex flex-col gap-1 lg:flex-row lg:items-center">
           {sources.map((href, index) => (
-            <li key={index} >
+            <li key={index}>
               <LinkPreview href={href} title={href} />
             </li>
           ))}
