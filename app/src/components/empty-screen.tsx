@@ -5,16 +5,16 @@ import { ArrowRight } from "@phosphor-icons/react";
 
 const exampleMessages = [
   {
-    heading: "How can I track my credits",
-    message: `How can I track my credits`,
+    heading: "How can I track my credits?",
+    message: `How can I track my credits?`,
   },
   {
-    heading: "Summarize an article",
-    message: "Summarize the following article for a 2nd grader: \n",
+    heading: "Can I work at Microsoft if I graduate from TUM?",
+    message: "Can I work at Microsoft if I graduate from TUM?",
   },
   {
-    heading: "Draft an email",
-    message: `Draft an email to my boss about the following: \n`,
+    heading: "Why is Azure the best cloud? Academically-speaking",
+    message: "Why is Azure the best cloud? Academically-speaking",
   },
 ];
 
