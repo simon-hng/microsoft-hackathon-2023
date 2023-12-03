@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     });
 
     const forwardDecision = new TextDecoder().decode(forwardDecisionEncoded);
-    const forwardDecisionBool = forwardDecision == "true" ? true : false;
+    const forwardDecisionBool = forwardDecision == "true";
     console.log(`Forward Decision: ${forwardDecision}`);
 
     if (forwardDecisionBool) {

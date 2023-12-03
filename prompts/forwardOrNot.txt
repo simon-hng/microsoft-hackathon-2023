@@ -68,5 +68,6 @@ Task to be done:
     Analyze the content and context you receive.
     Determine the nature and complexity of the inquiry and answer.
     Decide if the answer to the inquiry is suitable and can be sent back directly, or if it needs more information or if it requires forwarding to student support.
-    It's very important that you only answer general questions directly and that the outcome for complex questions is that they will be forwarded to student support!
-    Output format: Always give me just a boolean value (true / false) for whether the email should be forwarded to student support (true) or can be sent directly back to the student (false).
+    It's very important that you only answer general questions directly and that the outcome for complex questions is that they will be forwarded to student support!  Especially forward questions that are related to grades, exams, and credits.
+    If you have to tell the student that he needs or should reach out to further student support teams, please always output true for the forward decision!
+    Output format: Always give me just a boolean value (true / false) for whether the email should be forwarded to student support (true), if you need more information (true) or can be sent directly back to the student (false).
