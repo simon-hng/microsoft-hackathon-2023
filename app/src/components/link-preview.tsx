@@ -58,7 +58,7 @@ export const LinkPreview = ({ href, title, className }: LinkPreviewProps) => {
         <HoverCardContent className="z-10 w-80 bg-white p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all">
           <div className="flex justify-between space-x-4">
             <div className="space-y-2">
-              {source.images.length > 0 && (
+              {source?.images?.length > 0 && (
                 <img src={source.images.at(0) as string} alt={source.title} />
               )}
               <h4 className="text-sm font-semibold">{source.title}</h4>
