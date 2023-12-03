@@ -7,8 +7,11 @@ const CREATE_ANSWER = `Given the following input information, create an answer e
 Original Question from Student: {email}
 
 Top 3 Match Answers from Vector Database:
+    Question 1: {vdb_question_1}
     Answer 1: {vdb_answer_1}
+    Question 2: {vdb_question_2}
     Answer 2: {vdb_answer_2}
+    Question 3: {vdb_question_3}
     Answer 3: {vdb_answer_3}
 
 Tasks:
